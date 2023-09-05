@@ -10,35 +10,45 @@ import {
 	Button,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-
-const columns = [
-	{ field: "id", headerName: "ID", width: 50 },
-	{ field: "name", headerName: "Name", width: 140, editable: true },
-	{
-		field: "dataType",
-		headerName: "Data Type",
-		width: 140,
-		editable: true,
-	},
-	{
-		field: "allowNulls",
-		headerName: "Allow Nulls",
-		width: 100,
-		editable: true,
-	},
-];
-
-const rows = [
-	{
-		id: 1,
-		name: "ProjectName",
-		dataType: "NVARCHAR(MAX)",
-		allowNulls: "True",
-	},
-	{ id: 2, name: "ProjectNumber", dataType: "Int", allowNulls: "False" },
-];
+import crudDataGrid from "./components/crudDataGrid.jsx";
 
 function App() {
+	const [rows, setRows] = useState([
+		{
+			id: 1,
+			name: "",
+			dataType: "",
+			allowNulls: "",
+		},
+		{
+			id: "",
+			name: "",
+			dataType: "",
+			allowNulls: "",
+		},
+	]);
+
+	const cellChangeHandler = (params) => {
+		console.log(params);
+	};
+
+	const columns = [
+		{ field: "id", headerName: "ID", width: 90 },
+		{ field: "name", headerName: "Name", width: 150, editable: true },
+		{
+			field: "dataType",
+			headerName: "Data Type",
+			width: 150,
+			editable: true,
+		},
+		{
+			field: "allowNulls",
+			headerName: "Allow Nulls",
+			width: 150,
+			editable: true,
+		},
+	];
+
 	return (
 		<>
 			<CssBaseline>
@@ -58,15 +68,16 @@ function App() {
 							display: "inline-block",
 							width: "150px",
 							height: "100vh",
-							position: "sticky",
+							position: "fixed",
 							background: "lightgray",
 						}}
 					></div>
 					<div
 						style={{
 							display: "inline-block",
-							width: "500px",
+							width: "552px",
 							padding: "5px",
+							marginLeft: "150px",
 						}}
 					>
 						<div
@@ -82,17 +93,10 @@ function App() {
 						</div>
 						<DataGrid
 							rows={rows}
+							onRowEditCommit={cellChangeHandler}
 							columns={columns}
-							initialState={{
-								pagination: {
-									paginationModel: {
-										pageSize: 5,
-									},
-								},
-							}}
-							pageSizeOptions={[5]}
-							checkboxSelection
-							disableRowSelectionOnClick
+							hideFooter={true}
+							autoHeight={true}
 						/>
 					</div>
 				</div>
