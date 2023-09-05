@@ -1,3 +1,5 @@
+// Mostly copied from https://mui.com/x/react-data-grid/editing/
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,15 +17,6 @@ import {
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 
-const initialRows = [
-	{
-		id: randomId(),
-		name: "",
-		type: "nvarchar(50)",
-		nulls: "True",
-	},
-];
-
 function EditToolbar(props) {
 	const { setRows, setRowModesModel } = props;
 
@@ -31,7 +24,7 @@ function EditToolbar(props) {
 		const id = randomId();
 		setRows((oldRows) => [
 			...oldRows,
-			{ id, name: "", type: "nvarchar(50)", isNew: true },
+			{ id, name: "", type: "nvarchar(50)", nulls: "True", isNew: true },
 		]);
 		setRowModesModel((oldModel) => ({
 			...oldModel,
@@ -46,14 +39,13 @@ function EditToolbar(props) {
 				startIcon={<AddIcon />}
 				onClick={handleClick}
 			>
-				Add record
+				Add Row
 			</Button>
 		</GridToolbarContainer>
 	);
 }
 
-function crudDataGrid() {
-	const [rows, setRows] = React.useState(initialRows);
+function CrudDataGrid({ rows, setRows }) {
 	const [rowModesModel, setRowModesModel] = React.useState({});
 
 	const handleRowEditStop = (params, event) => {
@@ -106,19 +98,19 @@ function crudDataGrid() {
 		{
 			field: "name",
 			headerName: "Column Name",
-			width: 180,
+			width: 190,
 			editable: true,
 		},
 		{
 			field: "type",
 			headerName: "Data Type",
-			width: 180,
+			width: 150,
 			editable: true,
 		},
 		{
 			field: "nulls",
 			headerName: "Allow Nulls",
-			width: 180,
+			width: 100,
 			editable: true,
 			type: "singleSelect",
 			valueOptions: ["True", "False"],
@@ -173,35 +165,24 @@ function crudDataGrid() {
 	];
 
 	return (
-		<Box
-			sx={{
-				height: 500,
-				width: "100%",
-				"& .actions": {
-					color: "text.secondary",
-				},
-				"& .textPrimary": {
-					color: "text.primary",
-				},
+		<DataGrid
+			rows={rows}
+			columns={columns}
+			editMode="row"
+			rowModesModel={rowModesModel}
+			onRowModesModelChange={handleRowModesModelChange}
+			onRowEditStop={handleRowEditStop}
+			processRowUpdate={processRowUpdate}
+			slots={{
+				toolbar: EditToolbar,
 			}}
-		>
-			<DataGrid
-				rows={rows}
-				columns={columns}
-				editMode="row"
-				rowModesModel={rowModesModel}
-				onRowModesModelChange={handleRowModesModelChange}
-				onRowEditStop={handleRowEditStop}
-				processRowUpdate={processRowUpdate}
-				slots={{
-					toolbar: EditToolbar,
-				}}
-				slotProps={{
-					toolbar: { setRows, setRowModesModel },
-				}}
-			/>
-		</Box>
+			slotProps={{
+				toolbar: { setRows, setRowModesModel },
+			}}
+			sx={{ minHeight: 850 }}
+			hideFooter={true}
+		/>
 	);
 }
 
-export default crudDataGrid;
+export default CrudDataGrid;

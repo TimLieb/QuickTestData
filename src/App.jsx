@@ -9,45 +9,18 @@ import {
 	Drawer,
 	Button,
 } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import crudDataGrid from "./components/crudDataGrid.jsx";
+import CrudDataGrid from "./components/CrudDataGrid.jsx";
+import { randomId } from "@mui/x-data-grid-generator";
 
 function App() {
 	const [rows, setRows] = useState([
 		{
-			id: 1,
+			id: randomId(),
 			name: "",
-			dataType: "",
-			allowNulls: "",
-		},
-		{
-			id: "",
-			name: "",
-			dataType: "",
-			allowNulls: "",
+			type: "nvarchar(50)",
+			nulls: "True",
 		},
 	]);
-
-	const cellChangeHandler = (params) => {
-		console.log(params);
-	};
-
-	const columns = [
-		{ field: "id", headerName: "ID", width: 90 },
-		{ field: "name", headerName: "Name", width: 150, editable: true },
-		{
-			field: "dataType",
-			headerName: "Data Type",
-			width: 150,
-			editable: true,
-		},
-		{
-			field: "allowNulls",
-			headerName: "Allow Nulls",
-			width: 150,
-			editable: true,
-		},
-	];
 
 	return (
 		<>
@@ -80,24 +53,7 @@ function App() {
 							marginLeft: "150px",
 						}}
 					>
-						<div
-							style={{
-								paddingBottom: "5px",
-								display: "flex",
-								justifyContent: "right",
-							}}
-						>
-							<Button variant="contained" color="secondary">
-								Paste values
-							</Button>
-						</div>
-						<DataGrid
-							rows={rows}
-							onRowEditCommit={cellChangeHandler}
-							columns={columns}
-							hideFooter={true}
-							autoHeight={true}
-						/>
+						<CrudDataGrid rows={rows} setRows={setRows} />
 					</div>
 				</div>
 			</CssBaseline>
