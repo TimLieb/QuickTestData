@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box, Typography, Card } from "@mui/material";
 import CrudDataGrid from "./components/CrudDataGrid.jsx";
 import NavBarTop from "./components/NavBarTop.jsx";
 import NavBarSide from "./components/NavBarSide.jsx";
+import ConfigCard from "./components/ConfigCard.jsx";
 
 function App() {
 	const [rows, setRows] = useState([]);
+	const [selectedRow, setSelectedRow] = useState({});
 
 	return (
 		<>
@@ -13,7 +15,33 @@ function App() {
 				<NavBarTop />
 				<div style={{ display: "flex" }}>
 					<NavBarSide />
-					<CrudDataGrid rows={rows} setRows={setRows} />
+					<Box
+						sx={{
+							marginLeft: "150px",
+							width: "100%",
+						}}
+					>
+						<Box
+							sx={{
+								width: "100%",
+								height: "65px",
+							}}
+						></Box>
+						<div
+							style={{
+								display: "flex",
+								height: "800px",
+								padding: "5px",
+							}}
+						>
+							<CrudDataGrid
+								rows={rows}
+								setRows={setRows}
+								setSelectedRow={setSelectedRow}
+							/>
+							<ConfigCard selectedRow={selectedRow} />
+						</div>
+					</Box>
 				</div>
 			</CssBaseline>
 		</>
@@ -21,3 +49,5 @@ function App() {
 }
 
 export default App;
+
+// Notes

@@ -24,7 +24,7 @@ function EditToolbar(props) {
 		const id = randomId();
 		setRows((oldRows) => [
 			...oldRows,
-			{ id, name: "", type: "nvarchar(50)", nulls: "True", isNew: true },
+			{ id, name: "Temp", type: "String", nulls: "True", isNew: true },
 		]);
 		setRowModesModel((oldModel) => ({
 			...oldModel,
@@ -39,30 +39,37 @@ function EditToolbar(props) {
 				startIcon={<AddIcon />}
 				onClick={handleClick}
 			>
-				Add Row
+				Add Item
 			</Button>
 		</GridToolbarContainer>
 	);
 }
 
-function CrudDataGrid({ rows, setRows }) {
+function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 	const [rowModesModel, setRowModesModel] = useState({});
 
 	useEffect(() => {
-		setRows([
+		const temp = [
 			{
 				id: randomId(),
-				name: "",
-				type: "nvarchar(50)",
+				name: "Temp",
+				type: "String",
 				nulls: "True",
 			},
-		]);
+		];
+
+		setRows(temp);
+		setSelectedRow(temp[0]);
 	}, []);
 
 	const handleRowEditStop = (params, event) => {
 		if (params.reason === GridRowEditStopReasons.rowFocusOut) {
 			event.defaultMuiPrevented = true;
 		}
+	};
+
+	const handleRowClick = (params) => {
+		setSelectedRow(params.row);
 	};
 
 	const handleEditClick = (id) => () => {
@@ -98,6 +105,7 @@ function CrudDataGrid({ rows, setRows }) {
 	const processRowUpdate = (newRow) => {
 		const updatedRow = { ...newRow, isNew: false };
 		setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+		setSelectedRow(updatedRow);
 		return updatedRow;
 	};
 
@@ -117,6 +125,8 @@ function CrudDataGrid({ rows, setRows }) {
 			headerName: "Data Type",
 			width: 150,
 			editable: true,
+			type: "singleSelect",
+			valueOptions: ["String", "Integer", "Boolean", "Date/time"],
 		},
 		{
 			field: "nulls",
@@ -179,9 +189,6 @@ function CrudDataGrid({ rows, setRows }) {
 		<div
 			style={{
 				display: "inline-block",
-				width: "552px",
-				padding: "5px",
-				marginLeft: "150px",
 			}}
 		>
 			<DataGrid
@@ -191,6 +198,7 @@ function CrudDataGrid({ rows, setRows }) {
 				rowModesModel={rowModesModel}
 				onRowModesModelChange={handleRowModesModelChange}
 				onRowEditStop={handleRowEditStop}
+				onRowClick={handleRowClick}
 				processRowUpdate={processRowUpdate}
 				slots={{
 					toolbar: EditToolbar,
@@ -198,7 +206,6 @@ function CrudDataGrid({ rows, setRows }) {
 				slotProps={{
 					toolbar: { setRows, setRowModesModel },
 				}}
-				sx={{ minHeight: 850 }}
 				hideFooter={true}
 			/>
 		</div>

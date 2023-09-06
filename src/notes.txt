@@ -1,0 +1,2 @@
+Allow nulls/empties/both
+List of words/numbers/bools/dates
