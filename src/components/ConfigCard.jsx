@@ -7,38 +7,34 @@ function ConfigCard({ selectedRow }) {
 			sx={{
 				width: "100%",
 				marginLeft: "5px",
+				display: "flex",
 			}}
 		>
-			<Typography variant="subtitle1" align="center" sx={{}}>
-				Configure:{" "}
-				<Box component="span" fontWeight="bold">
-					{selectedRow.name}, {selectedRow.type}
-				</Box>
-			</Typography>
-			<Divider variant="middle" />
 			<Box
 				sx={{
-					display: "flex",
-					height: "760px",
+					width: "75%",
 				}}
 			>
-				<Box
-					sx={{
-						width: "75%",
-					}}
-				></Box>
-				<Divider
-					orientation="vertical"
-					flexItem={true}
-					sx={{
-						marginBottom: "8px",
-					}}
-				/>
-				<Box
-					sx={{
-						width: "100px",
-					}}
-				></Box>
+				<Typography variant="subtitle1" align="center" sx={{}}>
+					Configure:{" "}
+					<Box component="span" fontWeight="bold">
+						{selectedRow.name}, {selectedRow.type}
+					</Box>
+				</Typography>
+				<Divider variant="middle" />
+				<Box></Box>
+			</Box>
+
+			<Divider orientation="vertical" flexItem={true} />
+			<Box
+				sx={{
+					width: "25%",
+				}}
+			>
+				<Typography variant="subtitle1" align="center" sx={{}}>
+					Preview
+				</Typography>
+				<Divider variant="middle" />
 			</Box>
 		</Card>
 	);
