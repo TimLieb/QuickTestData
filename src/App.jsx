@@ -1,60 +1,19 @@
 import { useState } from "react";
-import {
-	AppBar,
-	Toolbar,
-	Typography,
-	Container,
-	Box,
-	CssBaseline,
-	Drawer,
-	Button,
-} from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import CrudDataGrid from "./components/CrudDataGrid.jsx";
-import { randomId } from "@mui/x-data-grid-generator";
+import NavBarTop from "./components/NavBarTop.jsx";
+import NavBarSide from "./components/NavBarSide.jsx";
 
 function App() {
-	const [rows, setRows] = useState([
-		{
-			id: randomId(),
-			name: "",
-			type: "nvarchar(50)",
-			nulls: "True",
-		},
-	]);
+	const [rows, setRows] = useState([]);
 
 	return (
 		<>
 			<CssBaseline>
-				<div>
-					<AppBar>
-						<Toolbar>
-							<Typography variant="h6">
-								Quick Test Data
-							</Typography>
-						</Toolbar>
-					</AppBar>
-					<Toolbar />
-				</div>
+				<NavBarTop />
 				<div style={{ display: "flex" }}>
-					<div
-						style={{
-							display: "inline-block",
-							width: "150px",
-							height: "100vh",
-							position: "fixed",
-							background: "lightgray",
-						}}
-					></div>
-					<div
-						style={{
-							display: "inline-block",
-							width: "552px",
-							padding: "5px",
-							marginLeft: "150px",
-						}}
-					>
-						<CrudDataGrid rows={rows} setRows={setRows} />
-					</div>
+					<NavBarSide />
+					<CrudDataGrid rows={rows} setRows={setRows} />
 				</div>
 			</CssBaseline>
 		</>

@@ -1,7 +1,6 @@
 // Mostly copied from https://mui.com/x/react-data-grid/editing/
 
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
@@ -16,6 +15,7 @@ import {
 	GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
+import { useEffect, useState } from "react";
 
 function EditToolbar(props) {
 	const { setRows, setRowModesModel } = props;
@@ -46,7 +46,18 @@ function EditToolbar(props) {
 }
 
 function CrudDataGrid({ rows, setRows }) {
-	const [rowModesModel, setRowModesModel] = React.useState({});
+	const [rowModesModel, setRowModesModel] = useState({});
+
+	useEffect(() => {
+		setRows([
+			{
+				id: randomId(),
+				name: "",
+				type: "nvarchar(50)",
+				nulls: "True",
+			},
+		]);
+	}, []);
 
 	const handleRowEditStop = (params, event) => {
 		if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -165,23 +176,32 @@ function CrudDataGrid({ rows, setRows }) {
 	];
 
 	return (
-		<DataGrid
-			rows={rows}
-			columns={columns}
-			editMode="row"
-			rowModesModel={rowModesModel}
-			onRowModesModelChange={handleRowModesModelChange}
-			onRowEditStop={handleRowEditStop}
-			processRowUpdate={processRowUpdate}
-			slots={{
-				toolbar: EditToolbar,
+		<div
+			style={{
+				display: "inline-block",
+				width: "552px",
+				padding: "5px",
+				marginLeft: "150px",
 			}}
-			slotProps={{
-				toolbar: { setRows, setRowModesModel },
-			}}
-			sx={{ minHeight: 850 }}
-			hideFooter={true}
-		/>
+		>
+			<DataGrid
+				rows={rows}
+				columns={columns}
+				editMode="row"
+				rowModesModel={rowModesModel}
+				onRowModesModelChange={handleRowModesModelChange}
+				onRowEditStop={handleRowEditStop}
+				processRowUpdate={processRowUpdate}
+				slots={{
+					toolbar: EditToolbar,
+				}}
+				slotProps={{
+					toolbar: { setRows, setRowModesModel },
+				}}
+				sx={{ minHeight: 850 }}
+				hideFooter={true}
+			/>
+		</div>
 	);
 }
 
