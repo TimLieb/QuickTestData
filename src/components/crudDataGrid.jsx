@@ -24,7 +24,7 @@ function EditToolbar(props) {
 		const id = randomId();
 		setRows((oldRows) => [
 			...oldRows,
-			{ id, name: "Temp", type: "String", nulls: "True", isNew: true },
+			{ id, name: "Temp", type: "STRING", isNew: true },
 		]);
 		setRowModesModel((oldModel) => ({
 			...oldModel,
@@ -53,8 +53,7 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 			{
 				id: randomId(),
 				name: "Temp",
-				type: "String",
-				nulls: "True",
+				type: "STRING",
 			},
 		];
 
@@ -116,30 +115,22 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 	const columns = [
 		{
 			field: "name",
-			headerName: "Column Name",
+			headerName: "COLUMN NAME",
 			width: 190,
 			editable: true,
 		},
 		{
 			field: "type",
-			headerName: "Data Type",
+			headerName: "DATA TYPE",
 			width: 150,
 			editable: true,
 			type: "singleSelect",
-			valueOptions: ["String", "Integer", "Boolean", "Date/time"],
-		},
-		{
-			field: "nulls",
-			headerName: "Allow Nulls",
-			width: 100,
-			editable: true,
-			type: "singleSelect",
-			valueOptions: ["True", "False"],
+			valueOptions: ["STRING", "INT", "BOOL", "DATE/TIME"],
 		},
 		{
 			field: "actions",
 			type: "actions",
-			headerName: "Actions",
+			headerName: "ACTIONS",
 			width: 100,
 			cellClassName: "actions",
 			getActions: ({ id }) => {

@@ -1,11 +1,12 @@
 import { CssBaseline, Box, Typography, Card, Divider } from "@mui/material";
+import StringConfigSection from "./ConfigCard/StringConfigSection";
 
 function ConfigCard({ selectedRow }) {
 	return (
 		<Card
 			variant="outlined"
 			sx={{
-				width: "100%",
+				width: "1313px",
 				marginLeft: "5px",
 				display: "flex",
 			}}
@@ -16,15 +17,14 @@ function ConfigCard({ selectedRow }) {
 				}}
 			>
 				<Typography variant="subtitle1" align="center" sx={{}}>
-					Configure:{" "}
+					CONFIGURE:{" "}
 					<Box component="span" fontWeight="bold">
 						{selectedRow.name}, {selectedRow.type}
 					</Box>
 				</Typography>
-				<Divider variant="middle" />
-				<Box></Box>
+				<Divider />
+				<StringConfigSection />
 			</Box>
-
 			<Divider orientation="vertical" flexItem={true} />
 			<Box
 				sx={{
@@ -32,9 +32,9 @@ function ConfigCard({ selectedRow }) {
 				}}
 			>
 				<Typography variant="subtitle1" align="center" sx={{}}>
-					Preview
+					PREVIEW
 				</Typography>
-				<Divider variant="middle" />
+				<Divider />
 			</Box>
 		</Card>
 	);
