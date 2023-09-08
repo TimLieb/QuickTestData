@@ -5,7 +5,7 @@ import ListAccordion from "./StringConfigSection/ListAccordian";
 import ValueCard from "./StringConfigSection/ValueCard";
 
 function LeftConfigSection() {
-	const [randomiser, setRandomiser] = useState("list");
+	const [randomiser, setRandomiser] = useState("value");
 
 	function RandomiserCard() {
 		const Card = randomiser === "list" ? <ListAccordion /> : <ValueCard />;
@@ -28,8 +28,8 @@ function LeftConfigSection() {
 					randomiser={randomiser}
 					setRandomiser={setRandomiser}
 				/>
-				<RandomiserCard />
 				<Divider />
+				<RandomiserCard />
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />
 		</Box>
