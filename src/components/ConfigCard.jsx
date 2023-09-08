@@ -17,7 +17,7 @@ function ConfigCard({ selectedRow }) {
 				}}
 			>
 				<Typography variant="subtitle1" align="center" sx={{}}>
-					CONFIGURE:{" "}
+					Configure:{" "}
 					<Box component="span" fontWeight="bold">
 						{selectedRow.name}, {selectedRow.type}
 					</Box>
@@ -32,7 +32,7 @@ function ConfigCard({ selectedRow }) {
 				}}
 			>
 				<Typography variant="subtitle1" align="center" sx={{}}>
-					PREVIEW
+					Preview
 				</Typography>
 				<Divider />
 			</Box>
