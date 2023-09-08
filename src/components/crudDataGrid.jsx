@@ -16,6 +16,15 @@ import {
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
 import { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
+	"& .rows-theme": {
+		"&:hover": {
+			backgroundColor: theme.palette.divider,
+		},
+	},
+}));
 
 function EditToolbar(props) {
 	const { setRows, setRowModesModel } = props;
@@ -182,7 +191,7 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 				display: "inline-block",
 			}}
 		>
-			<DataGrid
+			<StyledDataGrid
 				rows={rows}
 				columns={columns}
 				editMode="row"
@@ -198,6 +207,7 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 					toolbar: { setRows, setRowModesModel },
 				}}
 				hideFooter={true}
+				getRowClassName={(params) => "rows-theme"}
 			/>
 		</div>
 	);

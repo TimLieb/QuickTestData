@@ -1,5 +1,5 @@
 import { CssBaseline, Box, Typography, Card, Divider } from "@mui/material";
-import StringConfigSection from "./ConfigCard/StringConfigSection";
+import LeftConfigSection from "./ConfigCard/LeftConfigSection";
 
 function ConfigCard({ selectedRow }) {
 	return (
@@ -23,7 +23,7 @@ function ConfigCard({ selectedRow }) {
 					</Box>
 				</Typography>
 				<Divider />
-				<StringConfigSection />
+				<LeftConfigSection />
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />
 			<Box
