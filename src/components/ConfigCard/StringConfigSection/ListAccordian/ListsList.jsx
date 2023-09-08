@@ -2,9 +2,10 @@ import * as React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ReadMoreSharpIcon from "@mui/icons-material/ReadMoreSharp";
+import DescriptionIcon from "@mui/icons-material/Description";
 import IconButton from "@mui/material/IconButton";
-import { ListItemIcon } from "@mui/material";
+import { ListItemButton, ListItemIcon } from "@mui/material";
+import Lists from "./ListsList/Lists";
 
 function ListsList() {
 	return (
@@ -12,25 +13,41 @@ function ListsList() {
 			sx={{
 				width: "100%",
 				bgcolor: "background.paper",
-				padding: "5px",
-				paddingLeft: "50px",
 			}}
 		>
-			{[1, 2, 3].map((value) => (
+			{Lists.map((List) => (
 				<ListItem
-					key={value}
+					key={List.id}
 					disableGutters
 					sx={{
 						padding: 0,
-						height: "30px",
 					}}
 				>
-					<ListItemIcon>
-						<IconButton>
-							<ReadMoreSharpIcon />
-						</IconButton>
-					</ListItemIcon>
-					<ListItemText primary={`Line item ${value}`} />
+					<ListItemButton
+						sx={{
+							padding: 0,
+							":hover": {
+								bgcolor: (theme) => theme.palette.divider,
+							},
+						}}
+					>
+						<ListItemIcon
+							sx={{
+								width: "24px",
+								minWidth: "24px",
+								height: "24px",
+								marginLeft: "70px",
+							}}
+						>
+							<DescriptionIcon />
+						</ListItemIcon>
+						<ListItemText
+							primary={List.name}
+							sx={{
+								paddingTop: "3px",
+							}}
+						/>
+					</ListItemButton>
 				</ListItem>
 			))}
 		</List>
