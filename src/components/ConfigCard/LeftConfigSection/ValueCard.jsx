@@ -1,21 +1,30 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import DescriptionIcon from "@mui/icons-material/Description";
-import IconButton from "@mui/material/IconButton";
 import {
 	Divider,
-	ListItemButton,
-	ListItemIcon,
 	TextField,
 	FormGroup,
 	FormControlLabel,
 	Checkbox,
+	List,
+	ListItem,
 } from "@mui/material";
-import { Height } from "@mui/icons-material";
+import {
+	useValLenValue,
+	useValLenDispatch,
+} from "../../../context/ValLenContext";
 
 function ValueCard() {
+	const valLen = useValLenValue();
+	const dispatch = useValLenDispatch();
+
+	const valLenChangeHandler = (event) => {
+		const payload = event.target.value;
+		dispatch({
+			type: "SET",
+			payload: payload,
+		});
+	};
+
 	return (
 		<>
 			<Divider />
@@ -39,6 +48,8 @@ function ValueCard() {
 						variant="outlined"
 						helperText="Integer or Range e.g '3' or '3-9'"
 						size="small"
+						value={valLen}
+						onChange={valLenChangeHandler}
 					/>
 				</ListItem>
 				<ListItem

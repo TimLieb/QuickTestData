@@ -7,8 +7,13 @@ import ValueCard from "./LeftConfigSection/ValueCard";
 function LeftConfigSection() {
 	const [randomiser, setRandomiser] = useState("value");
 
-	function RandomiserCard() {
-		const Card = randomiser === "list" ? <ListAccordion /> : <ValueCard />;
+	function RandomiserCard({ setLength, setChars }) {
+		const Card =
+			randomiser === "list" ? (
+				<ListAccordion />
+			) : (
+				<ValueCard setLength={setLength} setChars={setChars} />
+			);
 		return Card;
 	}
 

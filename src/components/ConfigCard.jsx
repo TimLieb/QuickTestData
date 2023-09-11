@@ -3,9 +3,6 @@ import LeftConfigSection from "./ConfigCard/LeftConfigSection";
 import { useState } from "react";
 
 function ConfigCard({ selectedRow }) {
-	const [length, setLength] = useState([0, 0]);
-	const [chars, setChars] = useState([true, false, false, false]);
-
 	return (
 		<Card
 			variant="outlined"
@@ -27,7 +24,13 @@ function ConfigCard({ selectedRow }) {
 					</Box>
 				</Typography>
 				<Divider />
-				<LeftConfigSection setLength={setLength} setChars={setChars} />
+				<Box
+					sx={{
+						display: "flex",
+					}}
+				>
+					<LeftConfigSection />
+				</Box>
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />
 			<Box
