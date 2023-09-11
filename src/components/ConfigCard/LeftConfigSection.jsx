@@ -1,8 +1,8 @@
 import { Box, Divider, Typography, Button, ButtonGroup } from "@mui/material";
 import { useState } from "react";
-import RandomiserSelecter from "./StringConfigSection/RandomiserSelecter";
-import ListAccordion from "./StringConfigSection/ListAccordian";
-import ValueCard from "./StringConfigSection/ValueCard";
+import RandomiserSelecter from "./LeftConfigSection/RandomiserSelecter";
+import ListAccordion from "./LeftConfigSection/ListAccordian";
+import ValueCard from "./LeftConfigSection/ValueCard";
 
 function LeftConfigSection() {
 	const [randomiser, setRandomiser] = useState("value");
@@ -28,7 +28,6 @@ function LeftConfigSection() {
 					randomiser={randomiser}
 					setRandomiser={setRandomiser}
 				/>
-				<Divider />
 				<RandomiserCard />
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />
