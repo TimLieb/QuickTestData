@@ -1,8 +1,11 @@
 import { CssBaseline, Box, Typography, Card, Divider } from "@mui/material";
 import LeftConfigSection from "./ConfigCard/LeftConfigSection";
 import { useState } from "react";
+import { useConfigValue } from "../context/ConfigContext";
 
-function ConfigCard({ selectedRow }) {
+function ConfigCard() {
+	const configValue = useConfigValue();
+
 	return (
 		<Card
 			variant="outlined"
@@ -20,7 +23,7 @@ function ConfigCard({ selectedRow }) {
 				<Typography variant="subtitle1" align="center" sx={{}}>
 					Configure:{" "}
 					<Box component="span" fontWeight="bold">
-						{selectedRow.name}, {selectedRow.type}
+						{configValue.name}, {configValue.type}
 					</Box>
 				</Typography>
 				<Divider />

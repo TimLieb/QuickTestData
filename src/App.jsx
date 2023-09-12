@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CssBaseline, Box, Typography, Card } from "@mui/material";
 import CrudDataGrid from "./components/CrudDataGrid.jsx";
 import NavBarTop from "./components/NavBarTop.jsx";
@@ -6,9 +6,6 @@ import NavBarSide from "./components/NavBarSide.jsx";
 import ConfigCard from "./components/ConfigCard.jsx";
 
 function App() {
-	const [rows, setRows] = useState([]);
-	const [selectedRow, setSelectedRow] = useState({});
-
 	return (
 		<>
 			<CssBaseline>
@@ -34,12 +31,8 @@ function App() {
 								padding: "5px",
 							}}
 						>
-							<CrudDataGrid
-								rows={rows}
-								setRows={setRows}
-								setSelectedRow={setSelectedRow}
-							/>
-							<ConfigCard selectedRow={selectedRow} />
+							<CrudDataGrid />
+							<ConfigCard />
 						</div>
 					</Box>
 				</div>

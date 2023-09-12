@@ -1,10 +1,24 @@
 import { Box, Divider, Typography, Button, ButtonGroup } from "@mui/material";
-import { useState } from "react";
+import {
+	useConfigValue,
+	useConfigDispatch,
+} from "../../../context/ConfigContext";
+import { useColumnsDispatch } from "../../../context/ColumnsContext";
+import { useEffect } from "react";
 
-function RandomiserSelecter({ randomiser, setRandomiser }) {
+function RandomiserSelecter() {
+	const configDispatch = useConfigDispatch();
+	const configValue = useConfigValue();
+	const randomiser = configValue.configType;
+	const columnsDispatch = useColumnsDispatch();
+
+	useEffect(() => {
+		columnsDispatch({ type: "UPDATE", payload: configValue });
+	}, [configValue]);
+
 	function handleRandomiserClick() {
 		const newRandomiser = randomiser === "list" ? "value" : "list";
-		setRandomiser(newRandomiser);
+		configDispatch({ type: "SET_RANDOMISER", payload: newRandomiser });
 	}
 
 	const selButtonSX = {

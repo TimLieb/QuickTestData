@@ -3,17 +3,14 @@ import { useState } from "react";
 import RandomiserSelecter from "./LeftConfigSection/RandomiserSelecter";
 import ListAccordion from "./LeftConfigSection/ListAccordian";
 import ValueCard from "./LeftConfigSection/ValueCard";
+import { useConfigValue, useConfigDispatch } from "../../context/ConfigContext";
 
 function LeftConfigSection() {
-	const [randomiser, setRandomiser] = useState("value");
+	const configValue = useConfigValue();
+	const randomiser = configValue.configType;
 
-	function RandomiserCard({ setLength, setChars }) {
-		const Card =
-			randomiser === "list" ? (
-				<ListAccordion />
-			) : (
-				<ValueCard setLength={setLength} setChars={setChars} />
-			);
+	function RandomiserCard() {
+		const Card = randomiser === "list" ? <ListAccordion /> : <ValueCard />;
 		return Card;
 	}
 
@@ -29,10 +26,7 @@ function LeftConfigSection() {
 					width: "400px",
 				}}
 			>
-				<RandomiserSelecter
-					randomiser={randomiser}
-					setRandomiser={setRandomiser}
-				/>
+				<RandomiserSelecter />
 				<RandomiserCard />
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />

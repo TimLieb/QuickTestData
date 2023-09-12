@@ -17,6 +17,8 @@ import {
 import { randomId } from "@mui/x-data-grid-generator";
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
+import { useColumnsValue, useColumnsDispatch } from "../context/ColumnsContext";
+import { useConfigDispatch, useConfigValue } from "../context/ConfigContext";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -27,14 +29,13 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 function EditToolbar(props) {
-	const { setRows, setRowModesModel } = props;
+	const { setRowModesModel } = props;
+
+	const columnsDispatch = useColumnsDispatch();
 
 	const handleClick = () => {
 		const id = randomId();
-		setRows((oldRows) => [
-			...oldRows,
-			{ id, name: "Temp", type: "String", isNew: true },
-		]);
+		columnsDispatch({ type: "ADD", payload: id });
 		setRowModesModel((oldModel) => ({
 			...oldModel,
 			[id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
@@ -54,21 +55,29 @@ function EditToolbar(props) {
 	);
 }
 
-function CrudDataGrid({ rows, setRows, setSelectedRow }) {
+function CrudDataGrid() {
 	const [rowModesModel, setRowModesModel] = useState({});
 
-	useEffect(() => {
-		const temp = [
-			{
-				id: randomId(),
-				name: "Temp",
-				type: "String",
-			},
-		];
+	const columnsDispatch = useColumnsDispatch();
+	const columnsValue = useColumnsValue();
+	const configDispatch = useConfigDispatch();
+	const configValue = useConfigValue();
 
-		setRows(temp);
-		setSelectedRow(temp[0]);
+	useEffect(() => {
+		columnsDispatch({ type: "UPDATE", payload: configValue });
+	}, [configValue]);
+
+	useEffect(() => {
+		configDispatch({ type: "SET", payload: columnsValue[0] });
 	}, []);
+
+	const rows = columnsValue.map((column) => {
+		return {
+			id: column.id,
+			name: column.name,
+			type: column.type,
+		};
+	});
 
 	const handleRowEditStop = (params, event) => {
 		if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -77,7 +86,8 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 	};
 
 	const handleRowClick = (params) => {
-		setSelectedRow(params.row);
+		configDispatch({ type: "UPDATE_ROW", payload: params.row });
+		//FIX!!! should retrieve row from columnsValue using id
 	};
 
 	const handleEditClick = (id) => () => {
@@ -95,7 +105,8 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 	};
 
 	const handleDeleteClick = (id) => () => {
-		setRows(rows.filter((row) => row.id !== id));
+		columnsDispatch({ type: "DELETE", payload: id });
+		//TODO edge case - set state to another column or to nothing (need to handle nothing)
 	};
 
 	const handleCancelClick = (id) => () => {
@@ -103,18 +114,12 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 			...rowModesModel,
 			[id]: { mode: GridRowModes.View, ignoreModifications: true },
 		});
-
-		const editedRow = rows.find((row) => row.id === id);
-		if (editedRow.isNew) {
-			setRows(rows.filter((row) => row.id !== id));
-		}
 	};
 
 	const processRowUpdate = (newRow) => {
-		const updatedRow = { ...newRow, isNew: false };
-		setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-		setSelectedRow(updatedRow);
-		return updatedRow;
+		configDispatch({ type: "UPDATE_ROW", payload: newRow });
+		// Also fix this, maybe?
+		return newRow;
 	};
 
 	const handleRowModesModelChange = (newRowModesModel) => {
@@ -200,11 +205,14 @@ function CrudDataGrid({ rows, setRows, setSelectedRow }) {
 				onRowEditStop={handleRowEditStop}
 				onRowClick={handleRowClick}
 				processRowUpdate={processRowUpdate}
+				onProcessRowUpdateError={(error) => {
+					console.log(error);
+				}}
 				slots={{
 					toolbar: EditToolbar,
 				}}
 				slotProps={{
-					toolbar: { setRows, setRowModesModel },
+					toolbar: { setRowModesModel },
 				}}
 				hideFooter={true}
 				getRowClassName={(params) => "rows-theme"}

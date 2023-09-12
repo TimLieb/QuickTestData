@@ -8,22 +8,22 @@ import {
 	List,
 	ListItem,
 } from "@mui/material";
-import {
-	useValLenValue,
-	useValLenDispatch,
-} from "../../../context/ValLenContext";
+// import {
+// 	useValLenValue,
+// 	useValLenDispatch,
+// } from "../../../context/ValLenContext";
 
 function ValueCard() {
-	const valLen = useValLenValue();
-	const dispatch = useValLenDispatch();
+	// const valLen = useValLenValue();
+	// const dispatch = useValLenDispatch();
 
-	const valLenChangeHandler = (event) => {
-		const payload = event.target.value;
-		dispatch({
-			type: "SET",
-			payload: payload,
-		});
-	};
+	// const valLenChangeHandler = (event) => {
+	// 	const payload = event.target.value;
+	// 	dispatch({
+	// 		type: "SET",
+	// 		payload: payload,
+	// 	});
+	// };
 
 	return (
 		<>
@@ -48,8 +48,8 @@ function ValueCard() {
 						variant="outlined"
 						helperText="Integer or Range e.g '3' or '3-9'"
 						size="small"
-						value={valLen}
-						onChange={valLenChangeHandler}
+						// value={valLen}
+						// onChange={valLenChangeHandler}
 					/>
 				</ListItem>
 				<ListItem
