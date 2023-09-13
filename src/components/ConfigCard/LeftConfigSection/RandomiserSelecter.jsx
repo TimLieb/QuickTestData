@@ -1,14 +1,8 @@
 import { Box, Divider, Typography, Button, ButtonGroup } from "@mui/material";
-import {
-	useConfigValue,
-	useConfigDispatch,
-} from "../../../context/ConfigContext";
 import { useColumnsDispatch } from "../../../context/ColumnsContext";
 import { useEffect } from "react";
 
 function RandomiserSelecter() {
-	const configDispatch = useConfigDispatch();
-	const configValue = useConfigValue();
 	const randomiser = configValue.configType;
 	const columnsDispatch = useColumnsDispatch();
 

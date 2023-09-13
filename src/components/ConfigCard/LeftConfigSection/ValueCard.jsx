@@ -8,16 +8,10 @@ import {
 	List,
 	ListItem,
 } from "@mui/material";
-import {
-	useConfigValue,
-	useConfigDispatch,
-} from "../../../context/ConfigContext";
 import { useColumnsDispatch } from "../../../context/ColumnsContext";
 import { useEffect } from "react";
 
 function ValueCard() {
-	const configValue = useConfigValue();
-	const configDispatch = useConfigDispatch();
 	const columnsDispatch = useColumnsDispatch();
 
 	useEffect(() => {

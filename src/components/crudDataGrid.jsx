@@ -14,12 +14,9 @@ import {
 	GridActionsCellItem,
 	GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import { randomId } from "@mui/x-data-grid-generator";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { useColumnsValue, useColumnsDispatch } from "../context/ColumnsContext";
-import { useConfigDispatch, useConfigValue } from "../context/ConfigContext";
-import { createNewColumn } from "../helpers/ActionCreators";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -33,14 +30,9 @@ function EditToolbar(props) {
 	const { setRowModesModel } = props;
 
 	const columnsDispatch = useColumnsDispatch();
-	const columnsValue = useColumnsValue();
-	const configDispatch = useConfigDispatch();
 
 	const handleClick = () => {
-		const id = randomId();
-		const newColumn = createNewColumn(id);
-		configDispatch({ type: "SET", payload: newColumn });
-		columnsDispatch({ type: "ADD", payload: newColumn });
+		columnsDispatch({ type: "ADD" });
 
 		// setRowModesModel((oldModel) => ({
 		// 	...oldModel,
@@ -66,18 +58,8 @@ function CrudDataGrid() {
 
 	const columnsDispatch = useColumnsDispatch();
 	const columnsValue = useColumnsValue();
-	const configDispatch = useConfigDispatch();
-	const configValue = useConfigValue();
 
-	useEffect(() => {
-		columnsDispatch({ type: "UPDATE", payload: configValue });
-	}, [configValue]);
-
-	// useEffect(() => {
-	// 	configDispatch({ type: "SET", payload: columnsValue[0] });
-	// }, []);
-
-	const rows = columnsValue.map((column) => {
+	const rows = columnsValue.columns.map((column) => {
 		return {
 			id: column.id,
 			name: column.name,
@@ -92,10 +74,7 @@ function CrudDataGrid() {
 	};
 
 	const handleRowClick = (params) => {
-		const newConfig = columnsValue.find(
-			(column) => column.id === params.row.id
-		);
-		configDispatch({ type: "SET", payload: newConfig });
+		columnsDispatch({ type: "CONFIG", payload: params.row.id });
 	};
 
 	const handleEditClick = (id) => () => {
@@ -125,7 +104,7 @@ function CrudDataGrid() {
 	};
 
 	const processRowUpdate = (newRow) => {
-		configDispatch({ type: "UPDATE_ROW", payload: newRow });
+		columnsDispatch({ type: "UPDATE_ROW", payload: newRow });
 		return newRow;
 	};
 

@@ -4,8 +4,14 @@ import CrudDataGrid from "./components/CrudDataGrid.jsx";
 import NavBarTop from "./components/NavBarTop.jsx";
 import NavBarSide from "./components/NavBarSide.jsx";
 import ConfigCard from "./components/ConfigCard.jsx";
+import {
+	useColumnsValue,
+	useColumnsDispatch,
+} from "./context/ColumnsContext.jsx";
 
 function App() {
+	const columnsValue = useColumnsValue();
+
 	return (
 		<>
 			<CssBaseline>
@@ -32,7 +38,7 @@ function App() {
 							}}
 						>
 							<CrudDataGrid />
-							<ConfigCard />
+							{/* <ConfigCard /> */}
 						</div>
 					</Box>
 				</div>

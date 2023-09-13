@@ -1,11 +1,8 @@
 import { CssBaseline, Box, Typography, Card, Divider } from "@mui/material";
 import LeftConfigSection from "./ConfigCard/LeftConfigSection";
 import { useState } from "react";
-import { useConfigValue } from "../context/ConfigContext";
 
 function ConfigCard() {
-	const configValue = useConfigValue();
-
 	return (
 		<Card
 			variant="outlined"

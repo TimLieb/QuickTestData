@@ -2,36 +2,47 @@ import { createContext, useReducer, useContext } from "react";
 import { createNewColumn } from "../helpers/ActionCreators";
 import { randomId } from "@mui/x-data-grid-generator";
 
-const initialState = [
-	{
-		id: 1,
-		name: "Temp",
-		type: "String",
-		configType: "value",
-		listConfig: {
-			type: "sample",
-			id: "1",
-		},
-		valueConfig: {
-			length: "6",
-			lowerCase: true,
-			upperCase: false,
-			numbers: false,
-			special: false,
-		},
-	},
-];
+const id = randomId();
+const initialState = {
+	config: id,
+	columns: [createNewColumn(id)],
+};
 
 const columnsReducer = (state, action) => {
 	switch (action.type) {
 		case "ADD":
-			return state.concat(action.payload);
+			const id = randomId();
+			const column = createNewColumn(id);
+			return {
+				...state,
+				columns: state.columns.concat(column),
+			};
+		case "CONFIG":
+			return {
+				...state,
+				config: action.payload,
+			};
 		case "DELETE":
-			return state.filter((column) => column.id !== action.payload);
-		case "UPDATE":
-			return state.map((column) =>
-				column.id !== action.payload.id ? column : action.payload
-			);
+			return {
+				...state,
+				columns: state.columns.filter(
+					(column) => column.id !== action.payload
+				),
+			};
+		case "UPDATE_ROW":
+			return {
+				...state,
+				columns: state.columns.map((column) =>
+					column.id !== action.payload.id
+						? column
+						: {
+								...column,
+								name: action.payload.name,
+								type: action.payload.type,
+						  }
+				),
+			};
+
 		default:
 			return state;
 	}

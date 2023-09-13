@@ -1,4 +1,4 @@
-export const createNewColumn = (id, name, type) => {
+export const createNewColumn = (id) => {
 	return {
 		id: id,
 		name: "Temp",
