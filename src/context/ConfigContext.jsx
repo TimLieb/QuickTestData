@@ -1,5 +1,23 @@
 import { createContext, useReducer, useContext } from "react";
 
+const initialState = {
+	id: 1,
+	name: "Temp",
+	type: "String",
+	configType: "value",
+	listConfig: {
+		type: "sample",
+		id: "1",
+	},
+	valueConfig: {
+		length: 6,
+		lowerCase: true,
+		upperCase: false,
+		numbers: false,
+		special: false,
+	},
+};
+
 const configReducer = (state, action) => {
 	switch (action.type) {
 		case "SET":
@@ -16,6 +34,15 @@ const configReducer = (state, action) => {
 				name: action.payload.name,
 				type: action.payload.type,
 			};
+		case "UPDATE_LENGTH":
+			return {
+				...state,
+				valueConfig: {
+					...state.valueConfig,
+					length: action.payload,
+				},
+			};
+
 		default:
 			return state;
 	}
@@ -24,7 +51,7 @@ const configReducer = (state, action) => {
 const ConfigContext = createContext();
 
 export const ConfigContextProvider = (props) => {
-	const [config, configDispatch] = useReducer(configReducer, {});
+	const [config, configDispatch] = useReducer(configReducer, initialState);
 
 	return (
 		<ConfigContext.Provider value={[config, configDispatch]}>

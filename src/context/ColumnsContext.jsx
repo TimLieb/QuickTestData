@@ -2,10 +2,9 @@ import { createContext, useReducer, useContext } from "react";
 import { createNewColumn } from "../helpers/ActionCreators";
 import { randomId } from "@mui/x-data-grid-generator";
 
-const id = randomId();
 const initialState = [
 	{
-		id: id,
+		id: 1,
 		name: "Temp",
 		type: "String",
 		configType: "value",
@@ -14,7 +13,7 @@ const initialState = [
 			id: "1",
 		},
 		valueConfig: {
-			length: 6,
+			length: "6",
 			lowerCase: true,
 			upperCase: false,
 			numbers: false,
@@ -26,7 +25,7 @@ const initialState = [
 const columnsReducer = (state, action) => {
 	switch (action.type) {
 		case "ADD":
-			return state.concat(createNewColumn(action.payload, null, null));
+			return state.concat(action.payload);
 		case "DELETE":
 			return state.filter((column) => column.id !== action.payload);
 		case "UPDATE":

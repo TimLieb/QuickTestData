@@ -4,6 +4,7 @@ import RandomiserSelecter from "./LeftConfigSection/RandomiserSelecter";
 import ListAccordion from "./LeftConfigSection/ListAccordian";
 import ValueCard from "./LeftConfigSection/ValueCard";
 import { useConfigValue, useConfigDispatch } from "../../context/ConfigContext";
+import ValueCardTest from "./LeftConfigSection/ValueCardTest";
 
 function LeftConfigSection() {
 	const configValue = useConfigValue();

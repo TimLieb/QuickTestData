@@ -12,9 +12,9 @@ function RandomiserSelecter() {
 	const randomiser = configValue.configType;
 	const columnsDispatch = useColumnsDispatch();
 
-	useEffect(() => {
-		columnsDispatch({ type: "UPDATE", payload: configValue });
-	}, [configValue]);
+	// useEffect(() => {
+	// 	columnsDispatch({ type: "UPDATE", payload: configValue });
+	// }, [configValue]);
 
 	function handleRandomiserClick() {
 		const newRandomiser = randomiser === "list" ? "value" : "list";

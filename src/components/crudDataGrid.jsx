@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { useColumnsValue, useColumnsDispatch } from "../context/ColumnsContext";
 import { useConfigDispatch, useConfigValue } from "../context/ConfigContext";
+import { createNewColumn } from "../helpers/ActionCreators";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -32,14 +33,19 @@ function EditToolbar(props) {
 	const { setRowModesModel } = props;
 
 	const columnsDispatch = useColumnsDispatch();
+	const columnsValue = useColumnsValue();
+	const configDispatch = useConfigDispatch();
 
 	const handleClick = () => {
 		const id = randomId();
-		columnsDispatch({ type: "ADD", payload: id });
-		setRowModesModel((oldModel) => ({
-			...oldModel,
-			[id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
-		}));
+		const newColumn = createNewColumn(id);
+		configDispatch({ type: "SET", payload: newColumn });
+		columnsDispatch({ type: "ADD", payload: newColumn });
+
+		// setRowModesModel((oldModel) => ({
+		// 	...oldModel,
+		// 	[id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
+		// }));
 	};
 
 	return (
@@ -67,9 +73,9 @@ function CrudDataGrid() {
 		columnsDispatch({ type: "UPDATE", payload: configValue });
 	}, [configValue]);
 
-	useEffect(() => {
-		configDispatch({ type: "SET", payload: columnsValue[0] });
-	}, []);
+	// useEffect(() => {
+	// 	configDispatch({ type: "SET", payload: columnsValue[0] });
+	// }, []);
 
 	const rows = columnsValue.map((column) => {
 		return {
@@ -86,8 +92,10 @@ function CrudDataGrid() {
 	};
 
 	const handleRowClick = (params) => {
-		configDispatch({ type: "UPDATE_ROW", payload: params.row });
-		//FIX!!! should retrieve row from columnsValue using id
+		const newConfig = columnsValue.find(
+			(column) => column.id === params.row.id
+		);
+		configDispatch({ type: "SET", payload: newConfig });
 	};
 
 	const handleEditClick = (id) => () => {
@@ -118,7 +126,6 @@ function CrudDataGrid() {
 
 	const processRowUpdate = (newRow) => {
 		configDispatch({ type: "UPDATE_ROW", payload: newRow });
-		// Also fix this, maybe?
 		return newRow;
 	};
 

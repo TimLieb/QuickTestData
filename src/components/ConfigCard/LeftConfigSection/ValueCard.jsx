@@ -8,22 +8,29 @@ import {
 	List,
 	ListItem,
 } from "@mui/material";
-// import {
-// 	useValLenValue,
-// 	useValLenDispatch,
-// } from "../../../context/ValLenContext";
+import {
+	useConfigValue,
+	useConfigDispatch,
+} from "../../../context/ConfigContext";
+import { useColumnsDispatch } from "../../../context/ColumnsContext";
+import { useEffect } from "react";
 
 function ValueCard() {
-	// const valLen = useValLenValue();
-	// const dispatch = useValLenDispatch();
+	const configValue = useConfigValue();
+	const configDispatch = useConfigDispatch();
+	const columnsDispatch = useColumnsDispatch();
 
-	// const valLenChangeHandler = (event) => {
-	// 	const payload = event.target.value;
-	// 	dispatch({
-	// 		type: "SET",
-	// 		payload: payload,
-	// 	});
-	// };
+	useEffect(() => {
+		columnsDispatch({ type: "UPDATE", payload: configValue });
+	}, [configValue]);
+
+	const lengthChangeHandler = (event) => {
+		const payload = event.target.value;
+		configDispatch({
+			type: "UPDATE_LENGTH",
+			payload: payload,
+		});
+	};
 
 	return (
 		<>
@@ -47,9 +54,17 @@ function ValueCard() {
 						label="Length"
 						variant="outlined"
 						helperText="Integer or Range e.g '3' or '3-9'"
+						autoComplete="off"
 						size="small"
-						// value={valLen}
-						// onChange={valLenChangeHandler}
+						defaultValue={configValue.valueConfig.length}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") {
+								e.target.blur();
+							}
+						}}
+						inputProps={{
+							onBlur: lengthChangeHandler,
+						}}
 					/>
 				</ListItem>
 				<ListItem

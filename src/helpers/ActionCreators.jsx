@@ -1,8 +1,8 @@
 export const createNewColumn = (id, name, type) => {
 	return {
 		id: id,
-		name: name === null ? "Temp" : name,
-		type: type === null ? "String" : type,
+		name: "Temp",
+		type: "String",
 		configType: "value",
 		listConfig: {
 			type: "sample",
