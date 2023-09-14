@@ -60,6 +60,7 @@ function ValueCard() {
 					disableGutters
 					sx={{
 						padding: 0,
+						paddingTop: "15px",
 						justifyContent: "center",
 					}}
 				>
