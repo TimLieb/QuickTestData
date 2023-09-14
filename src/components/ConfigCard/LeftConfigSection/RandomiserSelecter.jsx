@@ -65,6 +65,7 @@ function RandomiserSelecter() {
 					height: "40px",
 					display: "flex",
 					verticalAlign: "middle",
+					width: "100%",
 				}}
 			>
 				<Typography
@@ -75,7 +76,7 @@ function RandomiserSelecter() {
 						justifyContent: "center",
 					}}
 				>
-					Randomiser Type:
+					Randomiser:
 				</Typography>
 				<Divider orientation="vertical" flexItem={true} />
 				<ButtonGroup

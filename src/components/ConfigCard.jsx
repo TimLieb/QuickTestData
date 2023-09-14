@@ -1,6 +1,8 @@
 import { Box, Typography, Card, Divider } from "@mui/material";
 import LeftConfigSection from "./ConfigCard/LeftConfigSection";
 import { useColumnsValue, useCurrentColumn } from "../context/ColumnsContext";
+import RightConfigSection from "./ConfigCard/RightConfigSection";
+import PreviewSection from "./ConfigCard/PreviewSection";
 
 function ConfigCard() {
 	const columnsValue = useColumnsValue();
@@ -12,20 +14,30 @@ function ConfigCard() {
 			variant="outlined"
 			sx={{
 				width: "1313px",
+				minWidth: "900px",
 				marginLeft: "5px",
 				display: "flex",
 			}}
 		>
 			<Box
 				sx={{
-					width: "75%",
+					width: "100%",
 				}}
 			>
-				<Typography variant="subtitle1" align="center" sx={{}}>
-					Configure:{" "}
+				<Typography
+					variant="subtitle1"
+					align="center"
+					sx={{
+						height: "40px",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					Configure:
 					<Box component="span" fontWeight="bold">
 						{hasConfig
-							? `${column.name}, ${column.type}`
+							? `\u2002${column.name}, ${column.type}`
 							: "Select a row"}
 					</Box>
 				</Typography>
@@ -33,10 +45,18 @@ function ConfigCard() {
 				<Box
 					sx={{
 						display: "flex",
+						width: "100%",
+						height: "748px",
 					}}
 				>
 					{hasConfig ? (
-						<LeftConfigSection />
+						<>
+							<LeftConfigSection />
+							<Divider orientation="vertical" flexItem={true} />
+							<RightConfigSection />
+							<Divider orientation="vertical" flexItem={true} />
+							<PreviewSection />
+						</>
 					) : (
 						<Typography
 							variant="Subtitle1"
@@ -52,17 +72,6 @@ function ConfigCard() {
 						</Typography>
 					)}
 				</Box>
-			</Box>
-			<Divider orientation="vertical" flexItem={true} />
-			<Box
-				sx={{
-					width: "25%",
-				}}
-			>
-				<Typography variant="subtitle1" align="center" sx={{}}>
-					Preview
-				</Typography>
-				<Divider />
 			</Box>
 		</Card>
 	);

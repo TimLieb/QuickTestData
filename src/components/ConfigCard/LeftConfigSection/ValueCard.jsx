@@ -52,7 +52,6 @@ function ValueCard() {
 			<List
 				sx={{
 					width: "100%",
-					paddingLeft: "20px",
 					paddingTop: "15px",
 				}}
 			>
@@ -61,6 +60,7 @@ function ValueCard() {
 					disableGutters
 					sx={{
 						padding: 0,
+						justifyContent: "center",
 					}}
 				>
 					<TextField
@@ -87,6 +87,7 @@ function ValueCard() {
 					sx={{
 						padding: 0,
 						paddingTop: "10px",
+						justifyContent: "center",
 					}}
 				>
 					<FormControl>

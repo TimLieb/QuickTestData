@@ -20,19 +20,12 @@ function LeftConfigSection() {
 	return (
 		<Box
 			sx={{
-				display: "flex",
-				height: "760px",
+				width: "33%",
+				minWidth: "300px",
 			}}
 		>
-			<Box
-				sx={{
-					width: "400px",
-				}}
-			>
-				<RandomiserSelecter />
-				<RandomiserCard />
-			</Box>
-			<Divider orientation="vertical" flexItem={true} />
+			<RandomiserSelecter />
+			<RandomiserCard />
 		</Box>
 	);
 }

@@ -1,6 +1,6 @@
 import { Box, Divider, Typography } from "@mui/material";
 
-function RightConfigSection() {
+function PreviewSection() {
 	return (
 		<>
 			<Box
@@ -18,7 +18,7 @@ function RightConfigSection() {
 						justifyContent: "center",
 					}}
 				>
-					Additional Details
+					Preview
 				</Typography>
 				<Divider />
 			</Box>
@@ -26,4 +26,4 @@ function RightConfigSection() {
 	);
 }
 
-export default RightConfigSection;
+export default PreviewSection;
