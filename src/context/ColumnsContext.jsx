@@ -5,14 +5,14 @@ import { randomId } from "@mui/x-data-grid-generator";
 const id = randomId();
 const initialState = {
 	config: id,
-	columns: [createNewColumn(id)],
+	columns: [createNewColumn(id, "Column1")],
 };
 
 const columnsReducer = (state, action) => {
 	switch (action.type) {
 		case "ADD":
 			const id = randomId();
-			const column = createNewColumn(id);
+			const column = createNewColumn(id, action.payload);
 			return {
 				...state,
 				columns: state.columns.concat(column),
@@ -25,6 +25,7 @@ const columnsReducer = (state, action) => {
 		case "DELETE":
 			return {
 				...state,
+				config: null,
 				columns: state.columns.filter(
 					(column) => column.id !== action.payload
 				),

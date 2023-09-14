@@ -18,7 +18,6 @@ function RandomiserSelecter() {
 		width: "50%",
 		borderRadius: "0",
 		boxShadow: "0",
-		borderRadius: 0,
 		":hover": {
 			boxShadow: 0,
 			bgcolor: (theme) => theme.palette.primary.main,

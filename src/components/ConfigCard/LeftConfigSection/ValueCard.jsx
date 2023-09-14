@@ -7,20 +7,29 @@ import {
 	Checkbox,
 	List,
 	ListItem,
+	Box,
+	Typography,
+	FormControl,
+	FormLabel,
+	FormHelperText,
 } from "@mui/material";
 import {
 	useColumnsDispatch,
 	useCurrentColumn,
 } from "../../../context/ColumnsContext";
+import { validateBoxes, validateLength } from "../../../helpers/DataValidation";
 
 function ValueCard() {
 	const columnsDispatch = useColumnsDispatch();
 	const column = useCurrentColumn();
 
 	const lengthChangeHandler = (event) => {
+		const length = event.target.value;
+		const error = validateLength(length);
 		const payload = {
 			...column.valueConfig,
-			length: event.target.value,
+			lenError: error,
+			length: length,
 		};
 		columnsDispatch({
 			type: "SET_VCONFIG",
@@ -29,38 +38,11 @@ function ValueCard() {
 	};
 
 	const checkBoxChangeHandler = (event) => {
-		const payload = () => {
-			switch (event.target.name) {
-				case "lowerCase":
-					return {
-						...column.valueConfig,
-						lowerCase: !column.valueConfig.lowerCase,
-					};
-				case "upperCase":
-					return {
-						...column.valueConfig,
-						upperCase: !column.valueConfig.upperCase,
-					};
-				case "numbers":
-					return {
-						...column.valueConfig,
-						numbers: !column.valueConfig.numbers,
-					};
-				case "special":
-					return {
-						...column.valueConfig,
-						special: !column.valueConfig.special,
-					};
-			}
-		};
+		const payload = validateBoxes(event.target.name, column);
 
-		// const payload = {
-		// 	...column.valueConfig,
-		// 	lowerCase: !column.valueConfig.lowerCase,
-		// };
 		columnsDispatch({
 			type: "SET_VCONFIG",
-			payload: payload(),
+			payload: payload,
 		});
 	};
 
@@ -82,10 +64,11 @@ function ValueCard() {
 					}}
 				>
 					<TextField
+						error={column.valueConfig.lenError}
 						id="stringLength"
 						label="Length"
 						variant="outlined"
-						helperText="Integer or Range e.g '3' or '3-9'"
+						helperText="Integer or Range e.g '3' or '3-9', max 50"
 						autoComplete="off"
 						size="small"
 						defaultValue={column.valueConfig.length}
@@ -106,60 +89,135 @@ function ValueCard() {
 						paddingTop: "10px",
 					}}
 				>
-					<FormGroup>
-						<FormControlLabel
-							control={
-								<Checkbox
-									name="lowerCase"
-									checked={column.valueConfig.lowerCase}
-									onChange={checkBoxChangeHandler}
+					<FormControl>
+						<FormGroup>
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<FormControlLabel
+									control={
+										<Checkbox
+											name="lowerCase"
+											checked={
+												column.valueConfig.lowerCase
+											}
+											onChange={checkBoxChangeHandler}
+										/>
+									}
+									label="Lowercase characters"
+									sx={{
+										height: "38px",
+									}}
 								/>
-							}
-							label="Lowercase characters"
-							sx={{
-								height: "38px",
-							}}
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									name="upperCase"
-									checked={column.valueConfig.upperCase}
-									onChange={checkBoxChangeHandler}
+								<Typography
+									variant="caption"
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									(a-z)
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<FormControlLabel
+									control={
+										<Checkbox
+											name="upperCase"
+											checked={
+												column.valueConfig.upperCase
+											}
+											onChange={checkBoxChangeHandler}
+										/>
+									}
+									label="Uppercase characters"
+									sx={{
+										height: "38px",
+									}}
 								/>
-							}
-							label="Uppercase characters"
-							sx={{
-								height: "38px",
-							}}
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									name="numbers"
-									checked={column.valueConfig.numbers}
-									onChange={checkBoxChangeHandler}
+								<Typography
+									variant="caption"
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									(A-Z)
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<FormControlLabel
+									control={
+										<Checkbox
+											name="numbers"
+											checked={column.valueConfig.numbers}
+											onChange={checkBoxChangeHandler}
+										/>
+									}
+									label="Numbers"
+									sx={{
+										height: "38px",
+									}}
 								/>
-							}
-							label="Numbers"
-							sx={{
-								height: "38px",
-							}}
-						/>
-						<FormControlLabel
-							control={
-								<Checkbox
-									name="special"
-									checked={column.valueConfig.special}
-									onChange={checkBoxChangeHandler}
+								<Typography
+									variant="caption"
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									(0-9)
+								</Typography>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+								}}
+							>
+								<FormControlLabel
+									control={
+										<Checkbox
+											name="special"
+											checked={column.valueConfig.special}
+											onChange={checkBoxChangeHandler}
+										/>
+									}
+									label="Special characters"
+									sx={{
+										height: "38px",
+									}}
 								/>
-							}
-							label="Special characters"
-							sx={{
-								height: "38px",
-							}}
-						/>
-					</FormGroup>
+								<Typography
+									variant="caption"
+									sx={{
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+									}}
+								>
+									(!?$%-_#)
+								</Typography>
+							</Box>
+							<FormHelperText sx={{ color: "#d32f2f" }}>
+								{column.valueConfig.boxError
+									? "Please choose at least one option"
+									: ""}
+							</FormHelperText>
+						</FormGroup>
+					</FormControl>
 				</ListItem>
 			</List>
 		</>

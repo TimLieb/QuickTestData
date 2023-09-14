@@ -5,6 +5,7 @@ import { useColumnsValue, useCurrentColumn } from "../context/ColumnsContext";
 function ConfigCard() {
 	const columnsValue = useColumnsValue();
 	const column = useCurrentColumn();
+	const hasConfig = columnsValue.config !== null;
 
 	return (
 		<Card
@@ -23,7 +24,9 @@ function ConfigCard() {
 				<Typography variant="subtitle1" align="center" sx={{}}>
 					Configure:{" "}
 					<Box component="span" fontWeight="bold">
-						{column.name}, {column.type}
+						{hasConfig
+							? `${column.name}, ${column.type}`
+							: "Select a row"}
 					</Box>
 				</Typography>
 				<Divider />
@@ -32,7 +35,22 @@ function ConfigCard() {
 						display: "flex",
 					}}
 				>
-					<LeftConfigSection />
+					{hasConfig ? (
+						<LeftConfigSection />
+					) : (
+						<Typography
+							variant="Subtitle1"
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								width: "100%",
+								height: "760px",
+							}}
+						>
+							Select a row
+						</Typography>
+					)}
 				</Box>
 			</Box>
 			<Divider orientation="vertical" flexItem={true} />

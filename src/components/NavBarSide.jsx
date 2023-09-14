@@ -2,7 +2,7 @@ function NavBarSide() {
 	return (
 		<div
 			style={{
-				zIndex: 1,
+				zIndex: 10,
 				display: "inline-block",
 				width: "150px",
 				height: "100vh",

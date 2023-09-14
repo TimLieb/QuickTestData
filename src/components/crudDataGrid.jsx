@@ -15,13 +15,33 @@ import {
 	GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { useState } from "react";
-import { styled } from "@mui/material/styles";
+import { styled, darken, lighten } from "@mui/material/styles";
 import { useColumnsValue, useColumnsDispatch } from "../context/ColumnsContext";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
 		"&:hover": {
+			backgroundColor: lighten(theme.palette.divider, 0.5),
+		},
+		"&.Mui-selected": {
 			backgroundColor: theme.palette.divider,
+			"&:hover": {
+				backgroundColor: lighten(theme.palette.divider, 0.2),
+			},
+		},
+	},
+	"& .hide-separator": {
+		"& > .MuiDataGrid-columnSeparator": {
+			display: "none",
+		},
+
+		"&:focus": {
+			outline: "none !important",
+		},
+	},
+	"& .headers-theme": {
+		"&:focus": {
+			outline: "none !important",
 		},
 	},
 }));
@@ -30,9 +50,13 @@ function EditToolbar(props) {
 	const { setRowModesModel } = props;
 
 	const columnsDispatch = useColumnsDispatch();
+	const columnsValue = useColumnsValue();
 
 	const handleClick = () => {
-		columnsDispatch({ type: "ADD" });
+		columnsDispatch({
+			type: "ADD",
+			payload: "Column" + (columnsValue.columns.length + 1),
+		});
 
 		// setRowModesModel((oldModel) => ({
 		// 	...oldModel,
@@ -118,6 +142,8 @@ function CrudDataGrid() {
 			headerName: "COLUMN NAME",
 			width: 190,
 			editable: true,
+			sortable: false,
+			headerClassName: "headers-theme",
 		},
 		{
 			field: "type",
@@ -126,6 +152,8 @@ function CrudDataGrid() {
 			editable: true,
 			type: "singleSelect",
 			valueOptions: ["String", "Number", "Boolean", "Date/Time"],
+			sortable: false,
+			headerClassName: "headers-theme",
 		},
 		{
 			field: "actions",
@@ -133,6 +161,7 @@ function CrudDataGrid() {
 			headerName: "ACTIONS",
 			width: 100,
 			cellClassName: "actions",
+			headerClassName: "hide-separator",
 			getActions: ({ id }) => {
 				const isInEditMode =
 					rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -183,6 +212,8 @@ function CrudDataGrid() {
 			}}
 		>
 			<StyledDataGrid
+				disableColumnFilter
+				disableColumnMenu
 				rows={rows}
 				columns={columns}
 				editMode="row"

@@ -1,7 +1,7 @@
-export const createNewColumn = (id) => {
+export const createNewColumn = (id, name) => {
 	return {
 		id: id,
-		name: "Temp",
+		name: name,
 		type: "String",
 		configType: "value",
 		listConfig: {
@@ -9,7 +9,9 @@ export const createNewColumn = (id) => {
 			id: "1",
 		},
 		valueConfig: {
-			length: 6,
+			boxError: false,
+			lenError: false,
+			length: "6",
 			lowerCase: true,
 			upperCase: false,
 			numbers: false,
