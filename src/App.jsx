@@ -38,7 +38,7 @@ function App() {
 							}}
 						>
 							<CrudDataGrid />
-							{/* <ConfigCard /> */}
+							<ConfigCard />
 						</div>
 					</Box>
 				</div>

@@ -1,8 +1,11 @@
-import { CssBaseline, Box, Typography, Card, Divider } from "@mui/material";
+import { Box, Typography, Card, Divider } from "@mui/material";
 import LeftConfigSection from "./ConfigCard/LeftConfigSection";
-import { useState } from "react";
+import { useColumnsValue, useCurrentColumn } from "../context/ColumnsContext";
 
 function ConfigCard() {
+	const columnsValue = useColumnsValue();
+	const column = useCurrentColumn();
+
 	return (
 		<Card
 			variant="outlined"
@@ -20,7 +23,7 @@ function ConfigCard() {
 				<Typography variant="subtitle1" align="center" sx={{}}>
 					Configure:{" "}
 					<Box component="span" fontWeight="bold">
-						{configValue.name}, {configValue.type}
+						{column.name}, {column.type}
 					</Box>
 				</Typography>
 				<Divider />

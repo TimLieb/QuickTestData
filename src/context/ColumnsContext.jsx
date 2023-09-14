@@ -42,7 +42,30 @@ const columnsReducer = (state, action) => {
 						  }
 				),
 			};
-
+		case "SET_RANDOMISER":
+			return {
+				...state,
+				columns: state.columns.map((column) =>
+					column.id !== state.config
+						? column
+						: {
+								...column,
+								configType: action.payload,
+						  }
+				),
+			};
+		case "SET_VCONFIG":
+			return {
+				...state,
+				columns: state.columns.map((column) =>
+					column.id !== state.config
+						? column
+						: {
+								...column,
+								valueConfig: action.payload,
+						  }
+				),
+			};
 		default:
 			return state;
 	}
@@ -68,6 +91,13 @@ export const useColumnsValue = () => {
 export const useColumnsDispatch = () => {
 	const columnsAndDispatch = useContext(ColumnsContext);
 	return columnsAndDispatch[1];
+};
+
+export const useCurrentColumn = () => {
+	const columnsValue = useColumnsValue();
+	return columnsValue.columns.find(
+		(column) => column.id === columnsValue.config
+	);
 };
 
 export default ColumnsContext;
