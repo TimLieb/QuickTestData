@@ -19,9 +19,7 @@ export const createNewColumn = (id, name) => {
 		},
 		addConfig: {
 			error: false,
-			nulls: false,
 			nullsVal: "",
-			empties: false,
 			emptiesVal: "",
 		},
 	};

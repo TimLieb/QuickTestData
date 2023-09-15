@@ -132,7 +132,13 @@ function RightConfigSection() {
 								alignItems: "center",
 							}}
 						>
-							<Typography minWidth="70px">Nulls</Typography>
+							<Typography
+								align="right"
+								minWidth="70px"
+								sx={{ paddingRight: "15px" }}
+							>
+								Null
+							</Typography>
 							<NullInput />
 						</Box>
 						<Box
@@ -142,7 +148,13 @@ function RightConfigSection() {
 								alignItems: "center",
 							}}
 						>
-							<Typography minWidth="70px">Empties</Typography>
+							<Typography
+								align="right"
+								minWidth="70px"
+								sx={{ paddingRight: "15px" }}
+							>
+								Empty
+							</Typography>
 							<EmptyInput />
 						</Box>
 					</Box>
