@@ -14,6 +14,12 @@ export const validateLength = (len) => {
 	);
 };
 
+export const validatePercentages = (nullsVal, emptiesVal) => {
+	const nulls = nullsVal === "" ? 0 : parseInt(nullsVal);
+	const empties = emptiesVal === "" ? 0 : parseInt(emptiesVal);
+	return nulls + empties <= 100 === false;
+};
+
 export const validateBoxes = (name, column) => {
 	switch (name) {
 		case "lowerCase":

@@ -37,7 +37,7 @@ function ValueCard() {
 		});
 	};
 
-	const checkBoxChangeHandler = (event) => {
+	const checkboxChangeHandler = (event) => {
 		const payload = validateBoxes(event.target.name, column);
 
 		columnsDispatch({
@@ -105,7 +105,7 @@ function ValueCard() {
 											checked={
 												column.valueConfig.lowerCase
 											}
-											onChange={checkBoxChangeHandler}
+											onChange={checkboxChangeHandler}
 										/>
 									}
 									label="Lowercase characters"
@@ -136,7 +136,7 @@ function ValueCard() {
 											checked={
 												column.valueConfig.upperCase
 											}
-											onChange={checkBoxChangeHandler}
+											onChange={checkboxChangeHandler}
 										/>
 									}
 									label="Uppercase characters"
@@ -165,7 +165,7 @@ function ValueCard() {
 										<Checkbox
 											name="numbers"
 											checked={column.valueConfig.numbers}
-											onChange={checkBoxChangeHandler}
+											onChange={checkboxChangeHandler}
 										/>
 									}
 									label="Numbers"
@@ -194,7 +194,7 @@ function ValueCard() {
 										<Checkbox
 											name="special"
 											checked={column.valueConfig.special}
-											onChange={checkBoxChangeHandler}
+											onChange={checkboxChangeHandler}
 										/>
 									}
 									label="Special characters"
