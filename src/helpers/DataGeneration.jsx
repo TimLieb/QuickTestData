@@ -94,9 +94,28 @@ export const generateColumnData = (id, columnsValue, count) => {
 				Arr = Arr.concat(num);
 			}
 			break;
+		case "Boolean":
+			const trueCol = column.valueConfig.true;
+			const falseCol = column.valueConfig.false;
+			switch (true) {
+				case trueCol && falseCol:
+					for (let i = 0; i < remainingCount; i++) {
+						// Clever method of randomly generating true or false
+						let bool = Math.random() < 0.5;
+						Arr = Arr.concat(bool.toString());
+					}
+					break;
+				case trueCol:
+					Arr = Arr.concat(Array(remainingCount).fill("true"));
+					break;
+				case falseCol:
+					Arr = Arr.concat(Array(remainingCount).fill("false"));
+					break;
+			}
+
+			break;
 	}
 
 	Arr = shuffle(Arr);
-
 	return Arr;
 };

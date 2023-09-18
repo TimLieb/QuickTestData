@@ -72,5 +72,34 @@ export const validateColumn = (column) => {
 			);
 		case "Number":
 			return column.valueConfig.lenError;
+		case "Boolean":
+			return column.valueConfig.error;
 	}
+};
+
+export const validateBoolBoxes = (name, column) => {
+	switch (name) {
+		case "true":
+			var newConfig = {
+				...column.valueConfig,
+				true: !column.valueConfig.true,
+			};
+			break;
+		case "false":
+			var newConfig = {
+				...column.valueConfig,
+				false: !column.valueConfig.false,
+			};
+			break;
+	}
+
+	return !newConfig.true && !newConfig.false
+		? {
+				...newConfig,
+				error: true,
+		  }
+		: {
+				...newConfig,
+				error: false,
+		  };
 };

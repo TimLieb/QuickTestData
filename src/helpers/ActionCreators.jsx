@@ -43,5 +43,11 @@ export const createVConfig = (type) => {
 				length: "6",
 				decimalPlaces: 0,
 			};
+		case "Boolean":
+			return {
+				error: false,
+				true: true,
+				false: true,
+			};
 	}
 };
