@@ -2,6 +2,7 @@ import { useCurrentColumn } from "../../../context/ColumnsContext";
 import StringValues from "./ValueCard/StringValues";
 import NumberValues from "./ValueCard/NumberValues";
 import BoolValues from "./ValueCard/BoolValues";
+import DateValues from "./ValueCard/DateValues";
 
 function ValueCard() {
 	const column = useCurrentColumn();
@@ -13,6 +14,8 @@ function ValueCard() {
 			return <NumberValues />;
 		case column.type === "Boolean":
 			return <BoolValues />;
+		case column.type === "Date/Time":
+			return <DateValues />;
 	}
 }
 
