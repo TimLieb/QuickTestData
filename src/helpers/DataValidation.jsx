@@ -63,9 +63,14 @@ export const validateBoxes = (name, column) => {
 };
 
 export const validateColumn = (column) => {
-	return (
-		column.valueConfig.boxError ||
-		column.valueConfig.lenError ||
-		column.addConfig.error
-	);
+	switch (column.type) {
+		case "String":
+			return (
+				column.valueConfig.boxError ||
+				column.valueConfig.lenError ||
+				column.addConfig.error
+			);
+		case "Number":
+			return column.valueConfig.lenError;
+	}
 };

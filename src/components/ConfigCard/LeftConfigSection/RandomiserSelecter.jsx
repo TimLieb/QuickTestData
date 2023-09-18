@@ -7,6 +7,7 @@ import {
 function RandomiserSelecter() {
 	const column = useCurrentColumn();
 	const randomiser = column.configType;
+	const type = column.type;
 	const columnsDispatch = useColumnsDispatch();
 
 	function handleRandomiserClick() {
@@ -33,28 +34,46 @@ function RandomiserSelecter() {
 	};
 
 	function RandomButtons() {
-		if (randomiser === "list") {
-			return (
-				<>
-					<Button variant="contained" sx={selButtonSX}>
-						LIST
-					</Button>
-					<Button sx={unSelButtonSX} onClick={handleRandomiserClick}>
-						VALUE
-					</Button>
-				</>
-			);
-		} else {
-			return (
-				<>
-					<Button sx={unSelButtonSX} onClick={handleRandomiserClick}>
-						LIST
-					</Button>
-					<Button variant="contained" sx={selButtonSX}>
-						VALUE
-					</Button>
-				</>
-			);
+		switch (true) {
+			case type !== "String":
+				return (
+					<>
+						<Button sx={unSelButtonSX} disabled>
+							LIST
+						</Button>
+						<Button variant="contained" sx={selButtonSX}>
+							VALUE
+						</Button>
+					</>
+				);
+			case randomiser === "list":
+				return (
+					<>
+						<Button variant="contained" sx={selButtonSX}>
+							LIST
+						</Button>
+						<Button
+							sx={unSelButtonSX}
+							onClick={handleRandomiserClick}
+						>
+							VALUE
+						</Button>
+					</>
+				);
+			case randomiser === "value":
+				return (
+					<>
+						<Button
+							sx={unSelButtonSX}
+							onClick={handleRandomiserClick}
+						>
+							LIST
+						</Button>
+						<Button variant="contained" sx={selButtonSX}>
+							VALUE
+						</Button>
+					</>
+				);
 		}
 	}
 

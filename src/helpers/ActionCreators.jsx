@@ -24,3 +24,24 @@ export const createNewColumn = (id, name) => {
 		},
 	};
 };
+
+export const createVConfig = (type) => {
+	switch (type) {
+		case "String":
+			return {
+				boxError: false,
+				lenError: false,
+				length: "6",
+				lowerCase: true,
+				upperCase: false,
+				numbers: false,
+				special: false,
+			};
+		case "Number":
+			return {
+				lenError: false,
+				length: "6",
+				decimalPlaces: 0,
+			};
+	}
+};

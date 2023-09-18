@@ -1,11 +1,11 @@
 import { Box, Divider } from "@mui/material";
 import RandomiserSelecter from "./LeftConfigSection/RandomiserSelecter";
 import ListAccordion from "./LeftConfigSection/ListAccordian";
-import ValueCard from "./LeftConfigSection/ValueCard";
 import {
 	useColumnsValue,
 	useCurrentColumn,
 } from "../../context/ColumnsContext";
+import ValueCard from "./LeftConfigSection/ValueCard";
 
 function LeftConfigSection() {
 	const columnsValue = useColumnsValue();

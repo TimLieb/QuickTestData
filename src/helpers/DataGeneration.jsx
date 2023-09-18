@@ -63,14 +63,39 @@ export const generateColumnData = (id, columnsValue, count) => {
 	let Arr = nulls > 0 ? Array(nulls).fill("null") : [];
 	Arr = empties > 0 ? Arr.concat(Array(empties).fill("")) : Arr;
 	const remainingCount = count - nulls - empties;
-	const characters = configureCharacters(column.valueConfig);
-	let range = parseLen(column.valueConfig.length);
-	range = range.length === 1 ? range.concat(range[0]) : range;
-	let len = 0;
-	for (let i = 0; i < remainingCount; i++) {
-		len = generateStringLength(range);
-		Arr = Arr.concat(generateString(len, characters));
+
+	switch (column.type) {
+		case "String":
+			const strCharacters = configureCharacters(column.valueConfig);
+			let strRange = parseLen(column.valueConfig.length);
+			strRange =
+				strRange.length === 1 ? strRange.concat(strRange[0]) : strRange;
+			for (let i = 0; i < remainingCount; i++) {
+				let strLen = generateStringLength(strRange);
+				Arr = Arr.concat(generateString(strLen, strCharacters));
+			}
+			break;
+		case "Number":
+			const characters = "0123456789";
+			let range = parseLen(column.valueConfig.length);
+			range = range.length === 1 ? range.concat(range[0]) : range;
+			let len = 0;
+			for (let i = 0; i < remainingCount; i++) {
+				len = generateStringLength(range);
+				let num = generateString(len, characters);
+				if (column.valueConfig.decimalPlaces !== 0) {
+					num +=
+						"." +
+						generateString(
+							column.valueConfig.decimalPlaces,
+							characters
+						);
+				}
+				Arr = Arr.concat(num);
+			}
+			break;
 	}
+
 	Arr = shuffle(Arr);
 
 	return Arr;

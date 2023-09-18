@@ -16,17 +16,19 @@ import {
 } from "../../context/ColumnsContext";
 import { generateColumnData } from "../../helpers/DataGeneration";
 import { validateColumn } from "../../helpers/DataValidation";
-
-//TODO add validation so section doesn't show up if there's any errors, make div scrollable
+import { useMemo } from "react";
 
 const PreviewSection = () => {
 	const column = useCurrentColumn();
 	const columnsValue = useColumnsValue();
 	const error = validateColumn(column);
+	const rows = useMemo(
+		() => generateColumnData(column.id, columnsValue, 100),
+		[column]
+	);
 
 	const TableSection = () => {
 		if (!error) {
-			const rows = generateColumnData(column.id, columnsValue, 100);
 			return (
 				<Paper sx={{ width: "100%", overflow: "hidden" }}>
 					<TableContainer

@@ -1,5 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
-import { createNewColumn } from "../helpers/ActionCreators";
+import { createNewColumn, createVConfig } from "../helpers/ActionCreators";
 import { randomId } from "@mui/x-data-grid-generator";
 
 const id = randomId();
@@ -40,6 +40,14 @@ const columnsReducer = (state, action) => {
 								...column,
 								name: action.payload.name,
 								type: action.payload.type,
+								configType:
+									action.payload.type === "String"
+										? column.configType
+										: "value",
+								valueConfig:
+									column.type === action.payload.type
+										? column.valueConfig
+										: createVConfig(action.payload.type),
 						  }
 				),
 			};
