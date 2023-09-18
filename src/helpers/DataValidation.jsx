@@ -61,3 +61,11 @@ export const validateBoxes = (name, column) => {
 				boxError: false,
 		  };
 };
+
+export const validateColumn = (column) => {
+	return (
+		column.valueConfig.boxError ||
+		column.valueConfig.lenError ||
+		column.addConfig.error
+	);
+};
