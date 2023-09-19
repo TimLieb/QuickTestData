@@ -1,4 +1,7 @@
+import moment from "moment";
 import { parseLen } from "./DataValidation";
+import parseISO from "date-fns/parseISO";
+import { format } from "date-fns";
 
 export const generateString = (length, characters) => {
 	let counter = 0;
@@ -49,6 +52,28 @@ const shuffle = (array) => {
 
 	return array;
 };
+
+//copied but modified from https://stackoverflow.com/questions/31378526/generate-random-date-between-two-dates-and-times-in-javascript
+//I realise this doesn't account for minutes but I couldn't think of a solution and it's not that important
+function randomDate(config) {
+	const start = parseISO(config.startDate);
+	const end = parseISO(config.endDate);
+	var date = new Date(+start + Math.random() * (end - start));
+	if (config.time) {
+		const startH = parseInt(
+			moment(config.startTime, "yyyy-MM-dd HH:mm").format("H")
+		);
+		const endH = parseInt(
+			moment(config.endTime, "yyyy-MM-dd HH:mm").format("H")
+		);
+		const hour = Math.random() * (endH - startH) + startH;
+		return (
+			format(date, "dd/MM/yyyy") + " " + moment(hour, "H").format("HH:mm")
+		);
+	} else {
+		return format(date, "dd/MM/yyyy");
+	}
+}
 
 export const generateColumnData = (id, columnsValue, count) => {
 	const column = columnsValue.columns.find((columnValue) => {
@@ -113,6 +138,11 @@ export const generateColumnData = (id, columnsValue, count) => {
 					break;
 			}
 
+			break;
+		case "Date/Time":
+			for (let i = 0; i < remainingCount; i++) {
+				Arr = Arr.concat(randomDate(column.valueConfig));
+			}
 			break;
 	}
 

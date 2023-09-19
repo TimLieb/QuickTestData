@@ -1,22 +1,16 @@
 export const createNewColumn = (id, name) => {
+	const type = "String";
+
 	return {
 		id: id,
 		name: name,
-		type: "String",
+		type: type,
 		configType: "value",
 		listConfig: {
 			type: "sample",
 			id: "1",
 		},
-		valueConfig: {
-			boxError: false,
-			lenError: false,
-			length: "6",
-			lowerCase: true,
-			upperCase: false,
-			numbers: false,
-			special: false,
-		},
+		valueConfig: createVConfig(type),
 		addConfig: {
 			error: false,
 			nullsVal: "",
@@ -48,6 +42,14 @@ export const createVConfig = (type) => {
 				error: false,
 				true: true,
 				false: true,
+			};
+		case "Date/Time":
+			return {
+				startDate: "2023-01-01",
+				endDate: "2023-12-31",
+				time: true,
+				startTime: "2000-01-01 08:00",
+				endTime: "2000-01-01 18:00",
 			};
 	}
 };

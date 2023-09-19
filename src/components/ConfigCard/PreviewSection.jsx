@@ -39,11 +39,11 @@ const PreviewSection = () => {
 						}}
 					>
 						<Table size="small" stickyHeader>
-							<TableHead>
+							{/* <TableHead>
 								<TableRow>
 									<TableCell>{column.name}</TableCell>
 								</TableRow>
-							</TableHead>
+							</TableHead> */}
 							<TableBody>
 								{rows.map((row, index) => (
 									<TableRow key={index}>

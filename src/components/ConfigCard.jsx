@@ -38,7 +38,7 @@ function ConfigCard() {
 					<Box component="span" fontWeight="bold">
 						{hasConfig
 							? `\u2002${column.name}, ${column.type}`
-							: "Select a row"}
+							: "\u2002Select a row"}
 					</Box>
 				</Typography>
 				<Divider />

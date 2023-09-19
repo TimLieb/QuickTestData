@@ -7,7 +7,8 @@ function NavBarSide() {
 				width: "150px",
 				height: "100vh",
 				position: "fixed",
-				background: "lightgray",
+				background: "white",
+				borderRight: "1px solid rgba(0, 0, 0, 0.12)",
 			}}
 		></div>
 	);

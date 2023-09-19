@@ -1,9 +1,16 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Divider, Toolbar, Typography } from "@mui/material";
 
 function NavBarTop() {
 	return (
 		<div>
-			<AppBar>
+			<AppBar
+				sx={{
+					boxShadow: 0,
+					backgroundColor: "white",
+					color: "black",
+					borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
+				}}
+			>
 				<Toolbar>
 					<Typography variant="h6">Quick Test Data</Typography>
 				</Toolbar>

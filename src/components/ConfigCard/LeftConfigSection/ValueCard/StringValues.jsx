@@ -42,7 +42,7 @@ function StringValues() {
 			<List
 				sx={{
 					width: "100%",
-					paddingTop: "15px",
+					paddingTop: "10px",
 				}}
 			>
 				<ListItem
