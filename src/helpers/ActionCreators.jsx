@@ -5,9 +5,9 @@ export const createNewColumn = (id, name) => {
 		id: id,
 		name: name,
 		type: type,
-		configType: "value",
+		configType: "list",
 		listConfig: {
-			type: "sample",
+			type: "custom",
 			id: 1,
 		},
 		valueConfig: createVConfig(type),

@@ -3,39 +3,29 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import DescriptionIcon from "@mui/icons-material/Description";
-import IconButton from "@mui/material/IconButton";
-import { ListItemButton, ListItemIcon } from "@mui/material";
-import Lists from "./ListsList/Lists";
 import {
-	useColumnsDispatch,
-	useCurrentColumn,
-} from "../../../../context/ColumnsContext";
+	Box,
+	Button,
+	Divider,
+	ListItemButton,
+	ListItemIcon,
+	Modal,
+	Typography,
+} from "@mui/material";
+import ListCreator from "./CustomLists/ListCreator";
 
-function ListsList() {
-	const column = useCurrentColumn();
-	const columnsDispatch = useColumnsDispatch();
-
-	const clickHandler = (event, id) => {
-		const payload = {
-			type: "sample",
-			id: id,
-		};
-		columnsDispatch({ type: "SET_LCONFIG", payload: payload });
-	};
-
+function CustomLists() {
 	return (
-		<List
-			sx={{
-				width: "100%",
-				bgcolor: "background.paper",
-			}}
-		>
-			{Lists.map((List) => (
+		<>
+			<List
+				sx={{
+					width: "100%",
+					bgcolor: "background.paper",
+				}}
+			>
 				<ListItem
-					key={List.id}
+					key={1}
 					disableGutters
-					selected={column.listConfig.id === List.id}
-					onClick={(e) => clickHandler(e, List.id)}
 					sx={{
 						padding: 0,
 					}}
@@ -59,16 +49,18 @@ function ListsList() {
 							<DescriptionIcon />
 						</ListItemIcon>
 						<ListItemText
-							primary={List.name}
+							primary={"Test"}
 							sx={{
 								paddingTop: "3px",
 							}}
 						/>
 					</ListItemButton>
 				</ListItem>
-			))}
-		</List>
+			</List>
+			<Divider />
+			<ListCreator />
+		</>
 	);
 }
 
-export default ListsList;
+export default CustomLists;

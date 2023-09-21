@@ -5,8 +5,9 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ListsList from "./ListAccordian/ListsList";
 import { useCurrentColumn } from "../../../context/ColumnsContext";
+import SampleLists from "./ListAccordian/SampleLists";
+import CustomLists from "./ListAccordian/CustomLists";
 
 const Accordion = styled((props) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
@@ -67,27 +68,25 @@ function ListAccordian() {
 						padding: 0,
 					}}
 				>
-					<ListsList />
+					<SampleLists />
 				</AccordionDetails>
 			</Accordion>
 			<Accordion
-				expanded={expanded === "panel2"}
-				onChange={handleChange("panel2")}
+				expanded={expanded === "custom"}
+				onChange={handleChange("custom")}
 			>
 				<AccordionSummary
 					aria-controls="panel2d-content"
 					id="panel2d-header"
 				>
-					<Typography>Custom collection 1</Typography>
+					<Typography>Custom lists</Typography>
 				</AccordionSummary>
-				<AccordionDetails>
-					<Typography>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Suspendisse malesuada lacus ex, sit amet blandit leo
-						lobortis eget. Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Suspendisse malesuada lacus ex, sit
-						amet blandit leo lobortis eget.
-					</Typography>
+				<AccordionDetails
+					sx={{
+						padding: 0,
+					}}
+				>
+					<CustomLists />
 				</AccordionDetails>
 			</Accordion>
 		</>

@@ -16,7 +16,7 @@ function NavBarTop() {
 						<img src="public\data.svg" />
 					</Icon>
 					<Typography variant="h6" sx={{ paddingLeft: "15px" }}>
-						Quick Test Data
+						QTD
 					</Typography>
 				</Toolbar>
 			</AppBar>

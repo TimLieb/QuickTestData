@@ -2,7 +2,7 @@ import moment from "moment";
 import { parseLen } from "./DataValidation";
 import parseISO from "date-fns/parseISO";
 import { format } from "date-fns";
-import Lists from "../components/ConfigCard/LeftConfigSection/ListAccordian/ListsList/Lists";
+import Lists from "../components/ConfigCard/LeftConfigSection/ListAccordian/SampleLists/Lists";
 
 export const generateString = (length, characters) => {
 	let counter = 0;
