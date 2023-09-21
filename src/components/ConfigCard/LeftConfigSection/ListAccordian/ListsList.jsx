@@ -6,8 +6,23 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import IconButton from "@mui/material/IconButton";
 import { ListItemButton, ListItemIcon } from "@mui/material";
 import Lists from "./ListsList/Lists";
+import {
+	useColumnsDispatch,
+	useCurrentColumn,
+} from "../../../../context/ColumnsContext";
 
 function ListsList() {
+	const column = useCurrentColumn();
+	const columnsDispatch = useColumnsDispatch();
+
+	const clickHandler = (event, id) => {
+		const payload = {
+			type: "sample",
+			id: id,
+		};
+		columnsDispatch({ type: "SET_LCONFIG", payload: payload });
+	};
+
 	return (
 		<List
 			sx={{
@@ -19,6 +34,8 @@ function ListsList() {
 				<ListItem
 					key={List.id}
 					disableGutters
+					selected={column.listConfig.id === List.id}
+					onClick={(e) => clickHandler(e, List.id)}
 					sx={{
 						padding: 0,
 					}}

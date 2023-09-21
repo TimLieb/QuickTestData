@@ -2,6 +2,7 @@ import moment from "moment";
 import { parseLen } from "./DataValidation";
 import parseISO from "date-fns/parseISO";
 import { format } from "date-fns";
+import Lists from "../components/ConfigCard/LeftConfigSection/ListAccordian/ListsList/Lists";
 
 export const generateString = (length, characters) => {
 	let counter = 0;
@@ -89,61 +90,77 @@ export const generateColumnData = (id, columnsValue, count) => {
 	Arr = empties > 0 ? Arr.concat(Array(empties).fill("")) : Arr;
 	const remainingCount = count - nulls - empties;
 
-	switch (column.type) {
-		case "String":
-			const strCharacters = configureCharacters(column.valueConfig);
-			let strRange = parseLen(column.valueConfig.length);
-			strRange =
-				strRange.length === 1 ? strRange.concat(strRange[0]) : strRange;
-			for (let i = 0; i < remainingCount; i++) {
-				let strLen = generateStringLength(strRange);
-				Arr = Arr.concat(generateString(strLen, strCharacters));
-			}
-			break;
-		case "Number":
-			const characters = "0123456789";
-			let range = parseLen(column.valueConfig.length);
-			range = range.length === 1 ? range.concat(range[0]) : range;
-			let len = 0;
-			for (let i = 0; i < remainingCount; i++) {
-				len = generateStringLength(range);
-				let num = generateString(len, characters);
-				if (column.valueConfig.decimalPlaces !== 0) {
-					num +=
-						"." +
-						generateString(
-							column.valueConfig.decimalPlaces,
-							characters
-						);
+	if (column.configType === "value") {
+		switch (column.type) {
+			case "String":
+				const strCharacters = configureCharacters(column.valueConfig);
+				let strRange = parseLen(column.valueConfig.length);
+				strRange =
+					strRange.length === 1
+						? strRange.concat(strRange[0])
+						: strRange;
+				for (let i = 0; i < remainingCount; i++) {
+					let strLen = generateStringLength(strRange);
+					Arr = Arr.concat(generateString(strLen, strCharacters));
 				}
-				Arr = Arr.concat(num);
-			}
-			break;
-		case "Boolean":
-			const trueCol = column.valueConfig.true;
-			const falseCol = column.valueConfig.false;
-			switch (true) {
-				case trueCol && falseCol:
-					for (let i = 0; i < remainingCount; i++) {
-						// Clever method of randomly generating true or false
-						let bool = Math.random() < 0.5;
-						Arr = Arr.concat(bool.toString());
+				break;
+			case "Number":
+				const characters = "0123456789";
+				let range = parseLen(column.valueConfig.length);
+				range = range.length === 1 ? range.concat(range[0]) : range;
+				let len = 0;
+				for (let i = 0; i < remainingCount; i++) {
+					len = generateStringLength(range);
+					let num = generateString(len, characters);
+					if (column.valueConfig.decimalPlaces !== 0) {
+						num +=
+							"." +
+							generateString(
+								column.valueConfig.decimalPlaces,
+								characters
+							);
 					}
-					break;
-				case trueCol:
-					Arr = Arr.concat(Array(remainingCount).fill("true"));
-					break;
-				case falseCol:
-					Arr = Arr.concat(Array(remainingCount).fill("false"));
-					break;
-			}
+					Arr = Arr.concat(num);
+				}
+				break;
+			case "Boolean":
+				const trueCol = column.valueConfig.true;
+				const falseCol = column.valueConfig.false;
+				switch (true) {
+					case trueCol && falseCol:
+						for (let i = 0; i < remainingCount; i++) {
+							// Clever method of randomly generating true or false
+							let bool = Math.random() < 0.5;
+							Arr = Arr.concat(bool.toString());
+						}
+						break;
+					case trueCol:
+						Arr = Arr.concat(Array(remainingCount).fill("true"));
+						break;
+					case falseCol:
+						Arr = Arr.concat(Array(remainingCount).fill("false"));
+						break;
+				}
 
-			break;
-		case "Date/Time":
+				break;
+			case "Date/Time":
+				for (let i = 0; i < remainingCount; i++) {
+					Arr = Arr.concat(randomDate(column.valueConfig));
+				}
+				break;
+		}
+	} else {
+		let sampleList = [];
+		let listObject = {};
+		if (column.listConfig.type === "sample") {
+			listObject = Lists.find((list) => list.id === column.listConfig.id);
+			sampleList = listObject.data;
 			for (let i = 0; i < remainingCount; i++) {
-				Arr = Arr.concat(randomDate(column.valueConfig));
+				Arr = Arr.concat(
+					sampleList[Math.floor(Math.random() * sampleList.length)]
+				);
 			}
-			break;
+		}
 	}
 
 	Arr = shuffle(Arr);

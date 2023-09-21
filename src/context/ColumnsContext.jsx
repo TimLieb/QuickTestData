@@ -87,6 +87,18 @@ const columnsReducer = (state, action) => {
 						  }
 				),
 			};
+		case "SET_LCONFIG":
+			return {
+				...state,
+				columns: state.columns.map((column) =>
+					column.id !== state.config
+						? column
+						: {
+								...column,
+								listConfig: action.payload,
+						  }
+				),
+			};
 		default:
 			return state;
 	}

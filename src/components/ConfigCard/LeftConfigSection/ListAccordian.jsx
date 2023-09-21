@@ -6,6 +6,7 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ListsList from "./ListAccordian/ListsList";
+import { useCurrentColumn } from "../../../context/ColumnsContext";
 
 const Accordion = styled((props) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
@@ -41,7 +42,9 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 function ListAccordian() {
-	const [expanded, setExpanded] = React.useState("");
+	const column = useCurrentColumn();
+
+	const [expanded, setExpanded] = React.useState(column.listConfig.type);
 
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);
@@ -50,8 +53,8 @@ function ListAccordian() {
 	return (
 		<>
 			<Accordion
-				expanded={expanded === "panel1"}
-				onChange={handleChange("panel1")}
+				expanded={expanded === "sample"}
+				onChange={handleChange("sample")}
 			>
 				<AccordionSummary
 					aria-controls="panel1d-content"

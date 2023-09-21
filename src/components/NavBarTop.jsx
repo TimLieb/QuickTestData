@@ -1,4 +1,4 @@
-import { AppBar, Divider, Toolbar, Typography } from "@mui/material";
+import { AppBar, Divider, Toolbar, Typography, Icon } from "@mui/material";
 
 function NavBarTop() {
 	return (
@@ -12,7 +12,12 @@ function NavBarTop() {
 				}}
 			>
 				<Toolbar>
-					<Typography variant="h6">Quick Test Data</Typography>
+					<Icon sx={{ width: "32px", height: "32px" }}>
+						<img src="public\data.svg" />
+					</Icon>
+					<Typography variant="h6" sx={{ paddingLeft: "15px" }}>
+						Quick Test Data
+					</Typography>
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
