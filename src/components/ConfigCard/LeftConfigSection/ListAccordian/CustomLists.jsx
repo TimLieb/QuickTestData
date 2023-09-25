@@ -7,14 +7,34 @@ import {
 	Box,
 	Button,
 	Divider,
+	IconButton,
 	ListItemButton,
 	ListItemIcon,
 	Modal,
 	Typography,
 } from "@mui/material";
 import ListCreator from "./CustomLists/ListCreator";
+import {
+	useCustomListDispatch,
+	useCustomListValue,
+} from "../../../../context/CustomListContext";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { useState } from "react";
 
 function CustomLists() {
+	const [listId, setListId] = useState("");
+	const listValue = useCustomListValue();
+	const listDispatch = useCustomListDispatch();
+
+	const editHandler = (event, targetId) => {
+		setListId(targetId);
+	};
+
+	const deleteHandler = (event, targetId) => {
+		listDispatch({ type: "DELETE", payload: targetId });
+	};
+
 	return (
 		<>
 			<List
@@ -23,42 +43,59 @@ function CustomLists() {
 					bgcolor: "background.paper",
 				}}
 			>
-				<ListItem
-					key={1}
-					disableGutters
-					sx={{
-						padding: 0,
-					}}
-				>
-					<ListItemButton
-						sx={{
-							padding: 0,
-							":hover": {
-								bgcolor: (theme) => theme.palette.divider,
-							},
-						}}
-					>
-						<ListItemIcon
+				{listValue.map((list) => {
+					return (
+						<ListItem
+							key={list.id}
+							disableGutters
 							sx={{
-								width: "24px",
-								minWidth: "24px",
-								height: "24px",
-								marginLeft: "70px",
+								padding: 0,
 							}}
 						>
-							<DescriptionIcon />
-						</ListItemIcon>
-						<ListItemText
-							primary={"Test"}
-							sx={{
-								paddingTop: "3px",
-							}}
-						/>
-					</ListItemButton>
-				</ListItem>
+							<ListItemButton
+								sx={{
+									padding: 0,
+									":hover": {
+										bgcolor: (theme) =>
+											theme.palette.divider,
+									},
+								}}
+							>
+								<ListItemIcon
+									sx={{
+										width: "24px",
+										minWidth: "24px",
+										height: "24px",
+										marginLeft: "70px",
+									}}
+								>
+									<DescriptionIcon />
+								</ListItemIcon>
+								<ListItemText
+									primary={list.name}
+									sx={{
+										paddingTop: "3px",
+									}}
+								/>
+							</ListItemButton>
+							<IconButton
+								onClick={(event) => editHandler(event, list.id)}
+							>
+								<ModeEditIcon />
+							</IconButton>
+							<IconButton
+								onClick={(event) =>
+									deleteHandler(event, list.id)
+								}
+							>
+								<DeleteOutlineIcon />
+							</IconButton>
+						</ListItem>
+					);
+				})}
 			</List>
 			<Divider />
-			<ListCreator />
+			<ListCreator listId={listId} setListId={setListId} />
 		</>
 	);
 }

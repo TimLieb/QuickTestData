@@ -13,7 +13,7 @@ function NavBarTop() {
 			>
 				<Toolbar>
 					<Icon sx={{ width: "32px", height: "32px" }}>
-						<img src="public\data.svg" />
+						<img src="\data.svg" />
 					</Icon>
 					<Typography variant="h6" sx={{ paddingLeft: "15px" }}>
 						QTD

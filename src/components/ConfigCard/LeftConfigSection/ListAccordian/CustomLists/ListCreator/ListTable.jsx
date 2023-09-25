@@ -1,12 +1,11 @@
-import { styled, darken, lighten } from "@mui/material/styles";
-import { useState } from "react";
+import { styled, lighten } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import { DataGrid, GridRowEditStopReasons } from "@mui/x-data-grid";
+import { TextField, Button } from "@mui/material";
 import {
-	GridRowModes,
-	DataGrid,
-	GridToolbarContainer,
-	GridActionsCellItem,
-	GridRowEditStopReasons,
-} from "@mui/x-data-grid";
+	useCustomListDispatch,
+	useCustomListValue,
+} from "../../../../../../context/CustomListContext";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -41,15 +40,26 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	},
 }));
 
-function ListTable() {
+function ListTable({ listId, setListId }) {
 	const [rowModesModel, setRowModesModel] = useState({});
 
-	let arr = [];
-	for (let i = 1; i < 101; i++) {
-		arr = arr.concat({ id: i, values: "" });
+	const listDispatch = useCustomListDispatch();
+	const lists = useCustomListValue();
+	const list = lists.find((list) => list.id === listId);
+	let initialRows = [];
+	let initialName = "";
+	if (list == null) {
+		for (let i = 1; i < 101; i++) {
+			initialRows = initialRows.concat({ id: i, values: "" });
+		}
+		initialName = "";
+	} else {
+		initialRows = list.values;
+		initialName = list.name;
 	}
 
-	const [rows, setRows] = useState(arr);
+	const [rows, setRows] = useState(initialRows);
+	const [name, setName] = useState(initialName);
 
 	const columns = [
 		{
@@ -107,11 +117,41 @@ function ListTable() {
 	};
 
 	const processRowUpdate = (newRow) => {
+		const newRows = rows.map((row) =>
+			row.id === newRow.id ? newRow : row
+		);
+		setRows(newRows);
 		return newRow;
+	};
+
+	const nameChangeHandler = (event) => {
+		setName(event.target.value);
+	};
+
+	const submitHandler = () => {
+		let newModel = {};
+		rows.map((row) => {
+			newModel[row.id] = { mode: "view" };
+		});
+		setRowModesModel(newModel);
+		listDispatch({
+			type: "UPSERT",
+			payload: { id: listId, name: name, values: rows },
+		});
+		setListId("");
 	};
 
 	return (
 		<>
+			<TextField
+				id="list-name"
+				label="Name"
+				variant="outlined"
+				size="small"
+				value={name}
+				onChange={nameChangeHandler}
+				sx={{ width: "100%", paddingBottom: "15px" }}
+			/>
 			<StyledDataGrid
 				getRowId={(row) => row.id}
 				disableColumnFilter
@@ -146,9 +186,16 @@ function ListTable() {
 						outline: "none !important",
 					},
 					overflow: "auto",
-					maxHeight: "400px",
+					maxHeight: "500px",
 				}}
 			/>
+			<Button
+				variant="contained"
+				sx={{ width: "100%", marginTop: "15px" }}
+				onClick={submitHandler}
+			>
+				Submit
+			</Button>
 		</>
 	);
 }

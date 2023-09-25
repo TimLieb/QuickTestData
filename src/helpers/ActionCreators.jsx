@@ -1,3 +1,5 @@
+import { randomId } from "@mui/x-data-grid-generator";
+
 export const createNewColumn = (id, name) => {
 	const type = "String";
 
@@ -52,4 +54,33 @@ export const createVConfig = (type) => {
 				endTime: "2000-01-01 18:00",
 			};
 	}
+};
+
+export const createInitialCustomLists = () => {
+	let values = [
+		{
+			id: 1,
+			values: "Custom Item 1",
+		},
+		{
+			id: 2,
+			values: "Custom Item 2",
+		},
+		{
+			id: 3,
+			values: "Custom Item 3",
+		},
+	];
+
+	for (let i = 4; i < 101; i++) {
+		values.push({ id: i, values: "" });
+	}
+
+	return [
+		{
+			id: randomId(),
+			name: "Custom List 1",
+			values: values,
+		},
+	];
 };

@@ -8,9 +8,11 @@ import {
 	useColumnsValue,
 	useColumnsDispatch,
 } from "./context/ColumnsContext.jsx";
+import { useCustomListValue } from "./context/CustomListContext.jsx";
 
 function App() {
 	const columnsValue = useColumnsValue();
+	const listValue = useCustomListValue();
 
 	return (
 		<>
