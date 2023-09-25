@@ -21,11 +21,17 @@ import {
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useState } from "react";
+import {
+	useColumnsDispatch,
+	useCurrentColumn,
+} from "../../../../context/ColumnsContext";
 
 function CustomLists() {
 	const [listId, setListId] = useState("");
 	const listValue = useCustomListValue();
 	const listDispatch = useCustomListDispatch();
+	const column = useCurrentColumn();
+	const columnsDispatch = useColumnsDispatch();
 
 	const editHandler = (event, targetId) => {
 		setListId(targetId);
@@ -33,6 +39,14 @@ function CustomLists() {
 
 	const deleteHandler = (event, targetId) => {
 		listDispatch({ type: "DELETE", payload: targetId });
+	};
+
+	const clickHandler = (event, id) => {
+		const payload = {
+			type: "custom",
+			id: id,
+		};
+		columnsDispatch({ type: "SET_LCONFIG", payload: payload });
 	};
 
 	return (
@@ -53,6 +67,8 @@ function CustomLists() {
 							}}
 						>
 							<ListItemButton
+								selected={column.listConfig.id === list.id}
+								onClick={(e) => clickHandler(e, list.id)}
 								sx={{
 									padding: 0,
 									":hover": {

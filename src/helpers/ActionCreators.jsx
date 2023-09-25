@@ -9,7 +9,7 @@ export const createNewColumn = (id, name) => {
 		type: type,
 		configType: "list",
 		listConfig: {
-			type: "custom",
+			type: "sample",
 			id: 1,
 		},
 		valueConfig: createVConfig(type),

@@ -1,8 +1,9 @@
 import moment from "moment";
-import { parseLen } from "./DataValidation";
+import { parseCustomList, parseLen } from "./DataValidation";
 import parseISO from "date-fns/parseISO";
 import { format } from "date-fns";
 import Lists from "../components/ConfigCard/LeftConfigSection/ListAccordian/SampleLists/Lists";
+import { useCustomListValue } from "../context/CustomListContext";
 
 export const generateString = (length, characters) => {
 	let counter = 0;
@@ -76,7 +77,7 @@ function randomDate(config) {
 	}
 }
 
-export const generateColumnData = (id, columnsValue, count) => {
+export const generateColumnData = (id, columnsValue, count, customLists) => {
 	const column = columnsValue.columns.find((columnValue) => {
 		return columnValue.id === id;
 	});
@@ -159,6 +160,24 @@ export const generateColumnData = (id, columnsValue, count) => {
 				Arr = Arr.concat(
 					sampleList[Math.floor(Math.random() * sampleList.length)]
 				);
+			}
+		} else {
+			const customList = customLists.find(
+				(list) => list.id === column.listConfig.id
+			);
+			const parsedList = parseCustomList(customList);
+			if (parsedList.length === 0) {
+				for (let i = 0; i < remainingCount; i++) {
+					Arr = Arr.concat("");
+				}
+			} else {
+				for (let i = 0; i < remainingCount; i++) {
+					Arr = Arr.concat(
+						parsedList[
+							Math.floor(Math.random() * parsedList.length)
+						]
+					);
+				}
 			}
 		}
 	}

@@ -17,14 +17,20 @@ import {
 import { generateColumnData } from "../../helpers/DataGeneration";
 import { validateColumn } from "../../helpers/DataValidation";
 import { useMemo } from "react";
+import { useCustomListValue } from "../../context/CustomListContext";
 
 const PreviewSection = () => {
 	const column = useCurrentColumn();
 	const columnsValue = useColumnsValue();
-	const error = validateColumn(column);
+	const customLists = useCustomListValue();
+	const error = validateColumn(column, customLists);
+
 	const rows = useMemo(
-		() => generateColumnData(column.id, columnsValue, 100),
-		[column]
+		() =>
+			error
+				? []
+				: generateColumnData(column.id, columnsValue, 100, customLists),
+		[column, customLists]
 	);
 
 	const TableSection = () => {

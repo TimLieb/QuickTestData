@@ -65,9 +65,18 @@ export const validateBoxes = (name, column) => {
 		  };
 };
 
-export const validateColumn = (column) => {
+export const validateColumn = (column, customLists) => {
 	switch (column.type) {
 		case "String":
+			if (column.listConfig.type === "custom") {
+				const list = customLists.find(
+					(list) => list.id === column.listConfig.id
+				);
+				if (list == null) {
+					return true;
+				}
+			}
+
 			return (
 				column.valueConfig.boxError ||
 				column.valueConfig.lenError ||
@@ -172,4 +181,14 @@ export const validateDates = (column, event, type, section) => {
 					: format(endTime, "yyyy-MM-dd HH:mm");
 		}
 	}
+};
+
+export const parseCustomList = (list) => {
+	let arr = [];
+	for (let i = 0; i < list.values.length; i++) {
+		if (list.values[i].values.trim() !== "") {
+			arr.push(list.values[i].values);
+		}
+	}
+	return arr;
 };

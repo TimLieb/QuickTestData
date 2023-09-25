@@ -6,6 +6,7 @@ import {
 	useCustomListDispatch,
 	useCustomListValue,
 } from "../../../../../../context/CustomListContext";
+import { useColumnsDispatch } from "../../../../../../context/ColumnsContext";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -42,7 +43,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 
 function ListTable({ listId, setListId }) {
 	const [rowModesModel, setRowModesModel] = useState({});
-
+	const columnsDispatch = useColumnsDispatch();
 	const listDispatch = useCustomListDispatch();
 	const lists = useCustomListValue();
 	const list = lists.find((list) => list.id === listId);
@@ -129,15 +130,15 @@ function ListTable({ listId, setListId }) {
 	};
 
 	const submitHandler = () => {
-		let newModel = {};
-		rows.map((row) => {
-			newModel[row.id] = { mode: "view" };
-		});
-		setRowModesModel(newModel);
 		listDispatch({
 			type: "UPSERT",
 			payload: { id: listId, name: name, values: rows },
 		});
+		const payload = {
+			type: "custom",
+			id: listId,
+		};
+		columnsDispatch({ type: "SET_LCONFIG", payload: payload });
 		setListId("");
 	};
 

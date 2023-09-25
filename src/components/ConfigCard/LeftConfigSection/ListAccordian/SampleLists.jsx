@@ -34,13 +34,13 @@ function SampleLists() {
 				<ListItem
 					key={List.id}
 					disableGutters
-					selected={column.listConfig.id === List.id}
-					onClick={(e) => clickHandler(e, List.id)}
 					sx={{
 						padding: 0,
 					}}
 				>
 					<ListItemButton
+						selected={column.listConfig.id === List.id}
+						onClick={(e) => clickHandler(e, List.id)}
 						sx={{
 							padding: 0,
 							":hover": {

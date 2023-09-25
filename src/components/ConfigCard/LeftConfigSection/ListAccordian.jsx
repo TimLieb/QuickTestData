@@ -8,6 +8,9 @@ import Typography from "@mui/material/Typography";
 import { useCurrentColumn } from "../../../context/ColumnsContext";
 import SampleLists from "./ListAccordian/SampleLists";
 import CustomLists from "./ListAccordian/CustomLists";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useMemo } from "react";
 
 const Accordion = styled((props) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
@@ -45,7 +48,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 function ListAccordian() {
 	const column = useCurrentColumn();
 
-	const [expanded, setExpanded] = React.useState(column.listConfig.type);
+	const [expanded, setExpanded] = useState(column.listConfig.type);
 
 	const handleChange = (panel) => (event, newExpanded) => {
 		setExpanded(newExpanded ? panel : false);
