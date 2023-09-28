@@ -7,7 +7,7 @@ export const createNewColumn = (id, name) => {
 		id: id,
 		name: name,
 		type: type,
-		configType: "list",
+		configType: "value",
 		listConfig: {
 			type: "sample",
 			id: 1,

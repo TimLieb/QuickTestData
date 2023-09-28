@@ -26,16 +26,10 @@ function App() {
 							width: "100%",
 						}}
 					>
-						<Box
-							sx={{
-								width: "100%",
-								height: "65px",
-							}}
-						></Box>
 						<div
 							style={{
 								display: "flex",
-								height: "800px",
+								height: "867px",
 								padding: "5px",
 							}}
 						>

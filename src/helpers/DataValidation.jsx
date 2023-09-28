@@ -192,3 +192,14 @@ export const parseCustomList = (list) => {
 	}
 	return arr;
 };
+
+export const validateAllColumns = (columnsState, customLists) => {
+	const columns = columnsState.columns;
+	let errArr = [];
+	for (let i = 0; i < columns.length; i++) {
+		if (validateColumn(columns[i], customLists)) {
+			errArr = errArr.concat(columns[i].name);
+		}
+	}
+	return errArr;
+};

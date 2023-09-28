@@ -46,7 +46,7 @@ function ConfigCard() {
 					sx={{
 						display: "flex",
 						width: "100%",
-						height: "748px",
+						height: "815px",
 					}}
 				>
 					{hasConfig ? (

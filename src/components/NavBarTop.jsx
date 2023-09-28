@@ -1,6 +1,20 @@
-import { AppBar, Divider, Toolbar, Typography, Icon } from "@mui/material";
+import {
+	AppBar,
+	Divider,
+	Toolbar,
+	Typography,
+	Icon,
+	Button,
+	Box,
+} from "@mui/material";
+import { useState } from "react";
+import DataModal from "./DataModal";
 
 function NavBarTop() {
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+	const handleClose = () => setOpen(false);
+
 	return (
 		<div>
 			<AppBar
@@ -15,12 +29,36 @@ function NavBarTop() {
 					<Icon sx={{ width: "32px", height: "32px" }}>
 						<img src="\data.svg" />
 					</Icon>
-					<Typography variant="h6" sx={{ paddingLeft: "15px" }}>
-						QTD
-					</Typography>
+					<Divider
+						variant="middle"
+						orientation="vertical"
+						flexItem={true}
+						sx={{ paddingLeft: "15px" }}
+					/>
+					<Box sx={{ paddingLeft: "15px" }}>
+						<Typography variant="h5" sx={{ height: "25px" }}>
+							QTD
+						</Typography>
+						<Typography variant="caption">
+							Quick Test Data
+						</Typography>
+					</Box>
+
+					<Button
+						variant="contained"
+						sx={{
+							height: "45px",
+							width: "250px",
+							marginLeft: "auto",
+						}}
+						onClick={handleOpen}
+					>
+						Generate dataset
+					</Button>
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
+			<DataModal handleClose={handleClose} open={open} />
 		</div>
 	);
 }

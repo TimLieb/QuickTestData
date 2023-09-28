@@ -1,7 +1,7 @@
 import { styled, lighten } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { DataGrid, GridRowEditStopReasons } from "@mui/x-data-grid";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 import {
 	useCustomListDispatch,
 	useCustomListValue,
@@ -147,12 +147,20 @@ function ListTable({ listId, setListId }) {
 			<TextField
 				id="list-name"
 				label="Name"
+				autoComplete="off"
 				variant="outlined"
 				size="small"
 				value={name}
 				onChange={nameChangeHandler}
 				sx={{ width: "100%", paddingBottom: "15px" }}
 			/>
+			<Typography
+				align="center"
+				variant="subtitle2"
+				sx={{ paddingBottom: "5px" }}
+			>
+				Note: Blank rows will be excluded
+			</Typography>
 			<StyledDataGrid
 				getRowId={(row) => row.id}
 				disableColumnFilter
