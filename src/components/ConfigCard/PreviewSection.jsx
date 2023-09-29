@@ -76,7 +76,7 @@ const PreviewSection = () => {
 						justifyContent: "center",
 						alignItems: "center",
 						width: "100%",
-						height: "400px",
+						height: "774px",
 					}}
 				>
 					Error
