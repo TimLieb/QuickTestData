@@ -6,6 +6,7 @@ import { useColumnsValue } from "../context/ColumnsContext";
 import { useCustomListValue } from "../context/CustomListContext";
 import { validateAllColumns } from "../helpers/DataValidation";
 import DataTableBase from "./DataModal/DataTableBase";
+import OptionsBar from "./DataModal/OptionsBar";
 
 function DataModal({ handleClose, open, setLoading }) {
 	const columns = useColumnsValue();
@@ -17,6 +18,7 @@ function DataModal({ handleClose, open, setLoading }) {
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
+		minWidth: "800px",
 		maxWidth: "1200px",
 		maxHeight: "800px",
 		// width: 1200,
@@ -49,7 +51,12 @@ function DataModal({ handleClose, open, setLoading }) {
 				</Box>
 			);
 		} else {
-			return <DataTableBase setLoading={setLoading} />;
+			return (
+				<>
+					<OptionsBar />
+					<DataTableBase setLoading={setLoading} />
+				</>
+			);
 		}
 	};
 
@@ -62,7 +69,7 @@ function DataModal({ handleClose, open, setLoading }) {
 							display: "flex",
 							justifyContent: "right",
 							paddingTop: "5px",
-							paddingBottom: "5px",
+							paddingBottom: "10px",
 						}}
 					>
 						<IconButton onClick={handleClose}>

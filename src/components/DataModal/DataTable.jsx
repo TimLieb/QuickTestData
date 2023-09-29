@@ -21,6 +21,9 @@ const DataTable = () => {
 
 	return (
 		<Box>
+			<Typography variant="subtitle2" sx={{ paddingBottom: "10px" }}>
+				First 200 rows preview:
+			</Typography>
 			<TableContainer
 				component={Paper}
 				sx={{
@@ -30,11 +33,20 @@ const DataTable = () => {
 					overflow: "auto",
 				}}
 			>
-				<Table sx={{ minWidth: 150 }} size="small">
+				<Table sx={{ minWidth: 150 }} size="small" stickyHeader>
 					<TableHead>
 						<TableRow key={1}>
 							{headers.map((header, i) => (
-								<TableCell key={"h" + i}>{header}</TableCell>
+								<TableCell
+									key={"h" + i}
+									sx={{
+										position: "sticky",
+										top: "-1px",
+										bgcolor: "#fff",
+									}}
+								>
+									{header}
+								</TableCell>
 							))}
 						</TableRow>
 					</TableHead>
@@ -53,6 +65,7 @@ const DataTable = () => {
 										component="th"
 										scope="row"
 										key={"c" + j + k}
+										sx={{ height: "33px" }}
 									>
 										{line}
 									</TableCell>
