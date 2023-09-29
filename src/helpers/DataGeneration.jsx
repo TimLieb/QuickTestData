@@ -185,3 +185,28 @@ export const generateColumnData = (id, columnsValue, count, customLists) => {
 	Arr = shuffle(Arr);
 	return Arr;
 };
+
+export const generateHeaders = (columnsValue) => {
+	var arr = [];
+	columnsValue.columns.map((column) => arr.push(column.name));
+
+	return arr;
+};
+
+export const generateRows = (columnsValue, count, customLists) => {
+	var arr = [];
+	columnsValue.columns.map((column) => {
+		var temp = generateColumnData(
+			column.id,
+			columnsValue,
+			count,
+			customLists
+		);
+		arr.push(temp);
+	});
+
+	//copied from https://stackoverflow.com/questions/17428587/transposing-a-2d-array-in-javascript
+	const output = arr[0].map((_, colIndex) => arr.map((row) => row[colIndex]));
+
+	return output;
+};

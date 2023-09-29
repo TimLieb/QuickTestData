@@ -68,12 +68,16 @@ export const validateBoxes = (name, column) => {
 export const validateColumn = (column, customLists) => {
 	switch (column.type) {
 		case "String":
-			if (column.listConfig.type === "custom") {
-				const list = customLists.find(
-					(list) => list.id === column.listConfig.id
-				);
-				if (list == null) {
-					return true;
+			if (column.configType === "list") {
+				if (column.listConfig.type === "custom") {
+					const list = customLists.find(
+						(list) => list.id === column.listConfig.id
+					);
+					if (list == null) {
+						return true;
+					}
+				} else {
+					return false;
 				}
 			}
 

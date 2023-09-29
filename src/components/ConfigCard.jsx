@@ -13,7 +13,7 @@ function ConfigCard() {
 		<Card
 			variant="outlined"
 			sx={{
-				width: "1313px",
+				width: "60%",
 				minWidth: "900px",
 				marginLeft: "5px",
 				display: "flex",
@@ -46,7 +46,7 @@ function ConfigCard() {
 					sx={{
 						display: "flex",
 						width: "100%",
-						height: "815px",
+						maxHeight: "814px",
 					}}
 				>
 					{hasConfig ? (

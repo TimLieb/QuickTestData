@@ -17,6 +17,7 @@ import {
 import { useState } from "react";
 import { styled, darken, lighten } from "@mui/material/styles";
 import { useColumnsValue, useColumnsDispatch } from "../context/ColumnsContext";
+import { Box } from "@mui/material";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 	"& .rows-theme": {
@@ -148,7 +149,7 @@ function CrudDataGrid() {
 		{
 			field: "type",
 			headerName: "DATA TYPE",
-			width: 150,
+			width: 125,
 			editable: true,
 			type: "singleSelect",
 			valueOptions: ["String", "Number", "Boolean", "Date/Time"],
@@ -159,7 +160,7 @@ function CrudDataGrid() {
 			field: "actions",
 			type: "actions",
 			headerName: "ACTIONS",
-			width: 100,
+			width: 95,
 			cellClassName: "actions",
 			headerClassName: "hide-separator",
 			getActions: ({ id }) => {
@@ -206,11 +207,7 @@ function CrudDataGrid() {
 	];
 
 	return (
-		<div
-			style={{
-				display: "inline-block",
-			}}
-		>
+		<Box sx={{ width: "413px", maxHeight: "857px", overflow: "auto" }}>
 			<StyledDataGrid
 				disableColumnFilter
 				disableColumnMenu
@@ -234,7 +231,7 @@ function CrudDataGrid() {
 				hideFooter={true}
 				getRowClassName={(params) => "rows-theme"}
 			/>
-		</div>
+		</Box>
 	);
 }
 

@@ -1,12 +1,13 @@
 import { Box, IconButton, Modal, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import DataTable from "./DataModal/DataTable";
 import { useColumnsValue } from "../context/ColumnsContext";
 import { useCustomListValue } from "../context/CustomListContext";
 import { validateAllColumns } from "../helpers/DataValidation";
+import DataTableBase from "./DataModal/DataTableBase";
 
-function DataModal({ handleClose, open }) {
+function DataModal({ handleClose, open, setLoading }) {
 	const columns = useColumnsValue();
 	const customLists = useCustomListValue();
 	const errArr = validateAllColumns(columns, customLists);
@@ -16,7 +17,8 @@ function DataModal({ handleClose, open }) {
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
-		// minWidth: 800,
+		maxWidth: "1200px",
+		maxHeight: "800px",
 		// width: 1200,
 		// height: 800,
 		bgcolor: "background.paper",
@@ -47,7 +49,7 @@ function DataModal({ handleClose, open }) {
 				</Box>
 			);
 		} else {
-			return <DataTable />;
+			return <DataTableBase setLoading={setLoading} />;
 		}
 	};
 

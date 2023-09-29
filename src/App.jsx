@@ -18,26 +18,20 @@ function App() {
 		<>
 			<CssBaseline>
 				<NavBarTop />
-				<div style={{ display: "flex" }}>
-					<NavBarSide />
-					<Box
-						sx={{
-							marginLeft: "150px",
-							width: "100%",
-						}}
-					>
-						<div
-							style={{
-								display: "flex",
-								height: "867px",
-								padding: "5px",
-							}}
-						>
-							<CrudDataGrid />
-							<ConfigCard />
-						</div>
-					</Box>
-				</div>
+				{/* <NavBarSide /> */}
+				<Box
+					sx={{
+						// marginLeft: "150px",
+						width: "100%",
+						display: "flex",
+						justifyContent: "center",
+						padding: "5px",
+						overflowX: "auto",
+					}}
+				>
+					<CrudDataGrid />
+					<ConfigCard />
+				</Box>
 			</CssBaseline>
 		</>
 	);

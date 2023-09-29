@@ -7,13 +7,32 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DataModal from "./DataModal";
+import { useColumnsValue } from "../context/ColumnsContext";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function NavBarTop() {
 	const [open, setOpen] = useState(false);
-	const handleOpen = () => setOpen(true);
+	const [loading, setLoading] = useState(false);
+
+	const handleOpen = () => {
+		setLoading(true);
+	};
 	const handleClose = () => setOpen(false);
+	const columns = useColumnsValue();
+
+	useEffect(() => {
+		asyncTimer().then(() => {
+			if (loading) {
+				setOpen(true);
+			}
+		});
+	}, [loading]);
+
+	const asyncTimer = async () => {
+		await new Promise((r) => setTimeout(r, 500));
+	};
 
 	return (
 		<div>
@@ -45,6 +64,7 @@ function NavBarTop() {
 					</Box>
 
 					<Button
+						disabled={columns.columns.length < 1}
 						variant="contained"
 						sx={{
 							height: "45px",
@@ -53,12 +73,22 @@ function NavBarTop() {
 						}}
 						onClick={handleOpen}
 					>
-						Generate dataset
+						{loading ? (
+							<CircularProgress
+								sx={{ color: "white", padding: "5px" }}
+							/>
+						) : (
+							"Generate dataset"
+						)}
 					</Button>
 				</Toolbar>
 			</AppBar>
 			<Toolbar />
-			<DataModal handleClose={handleClose} open={open} />
+			<DataModal
+				handleClose={handleClose}
+				open={open}
+				setLoading={setLoading}
+			/>
 		</div>
 	);
 }

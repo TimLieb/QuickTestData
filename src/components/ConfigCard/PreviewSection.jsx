@@ -41,7 +41,7 @@ const PreviewSection = () => {
 						sx={{
 							width: "100%",
 							overflow: "auto",
-							maxHeight: "776px",
+							maxHeight: "775px",
 						}}
 					>
 						<Table size="small" stickyHeader>
