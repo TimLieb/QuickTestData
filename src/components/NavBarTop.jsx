@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import DataModal from "./DataModal";
 import { useColumnsValue } from "../context/ColumnsContext";
 import CircularProgress from "@mui/material/CircularProgress";
+import imgUrl from "../assets/data.svg";
 
 function NavBarTop() {
 	const [open, setOpen] = useState(false);
@@ -46,7 +47,7 @@ function NavBarTop() {
 			>
 				<Toolbar>
 					<Icon sx={{ width: "32px", height: "32px" }}>
-						<img src="../src/assets/data.svg" />
+						<img src={imgUrl} />
 					</Icon>
 					<Divider
 						variant="middle"
