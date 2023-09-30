@@ -46,7 +46,7 @@ function NavBarTop() {
 			>
 				<Toolbar>
 					<Icon sx={{ width: "32px", height: "32px" }}>
-						<img src="\data.svg" />
+						<img src="../src/assets/data.svg" />
 					</Icon>
 					<Divider
 						variant="middle"
