@@ -210,3 +210,55 @@ export const generateRows = (columnsValue, count, customLists) => {
 
 	return output;
 };
+
+export const generateFile = (headers, rows, type) => {
+	switch (type) {
+		case "csv":
+			var body = "";
+			headers.map((header, i) => {
+				body += header + ",";
+			});
+			body = body.slice(0, -1) + "\n";
+			rows.map((row) => {
+				row.map((item) => {
+					body += item + ",";
+				});
+				body = body.slice(0, -1) + "\n";
+			});
+
+			return new File([body], "test_dataset.csv", {
+				type: "text/csv",
+			});
+		case "json":
+			var body = [];
+			rows.map((row) => {
+				var obj = {};
+				row.map((item, i) => {
+					obj[headers[i]] = item;
+				});
+				body.push(obj);
+			});
+
+			body = JSON.stringify(body);
+
+			return new File([body], "test_dataset.json", {
+				type: "application/json",
+			});
+		case "text":
+			var body = "";
+			headers.map((header, i) => {
+				body += header + "\t";
+			});
+			body = body.slice(0, -1) + "\n";
+			rows.map((row) => {
+				row.map((item) => {
+					body += item + "\t";
+				});
+				body = body.slice(0, -1) + "\n";
+			});
+
+			return new File([body], "test_dataset.txt", {
+				type: "text/plain",
+			});
+	}
+};

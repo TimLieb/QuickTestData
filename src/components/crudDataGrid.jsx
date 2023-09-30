@@ -54,10 +54,12 @@ function EditToolbar(props) {
 	const columnsValue = useColumnsValue();
 
 	const handleClick = () => {
-		columnsDispatch({
-			type: "ADD",
-			payload: "Column" + (columnsValue.columns.length + 1),
-		});
+		if (columnsValue.columns.length < 100) {
+			columnsDispatch({
+				type: "ADD",
+				payload: "Column" + (columnsValue.columns.length + 1),
+			});
+		}
 
 		// setRowModesModel((oldModel) => ({
 		// 	...oldModel,
