@@ -1,7 +1,7 @@
 import { styled, lighten } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { DataGrid, GridRowEditStopReasons } from "@mui/x-data-grid";
-import { TextField, Button, Typography } from "@mui/material";
+import { TextField, Button, Typography, Box } from "@mui/material";
 import {
 	useCustomListDispatch,
 	useCustomListValue,
@@ -143,7 +143,7 @@ function ListTable({ listId, setListId }) {
 	};
 
 	return (
-		<>
+		<Box sx={{ width: "100%" }}>
 			<TextField
 				id="list-name"
 				label="Name"
@@ -205,7 +205,7 @@ function ListTable({ listId, setListId }) {
 			>
 				Submit
 			</Button>
-		</>
+		</Box>
 	);
 }
 
