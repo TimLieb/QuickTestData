@@ -101,4 +101,4 @@ You will then be greeted with this screen:
 <img src="public\gen.png">
 <br>
 <br>
-With this you can choose how many rows you want to generate and what file type you want to download. Once done press the dwonload button and it will download the file.
+With this you can choose how many rows you want to generate and what file type you want to download. Once done press the download button and it will download the file.
